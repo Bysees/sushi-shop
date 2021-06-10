@@ -1,0 +1,23 @@
+@import './../../assets/variables';
+
+.product {
+  border: 1px solid #000;
+  &__title {
+    margin-top: 40px;
+    font-size: 3rem;
+    color: #2c3a5c;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+  &__filters {
+    padding: $container-padding;
+    margin-top: 30px;
+    background-color: rgb(235, 235, 235);
+    height: 55px;
+  }
+  &__items {
+    margin-top: 15px;
+    padding: $container-padding;
+  }
+}

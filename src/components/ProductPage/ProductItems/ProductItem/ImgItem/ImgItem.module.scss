@@ -1,0 +1,54 @@
+.item {
+  position: relative;
+  & img {
+    width: 100%;
+  }
+  &__hint {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    &::before {
+      z-index: 5;
+      position: absolute;
+      display: block;
+      content: '';
+      height: 100%;
+      width: 100%;
+    }
+    &_info {
+      transition: 0.3s;
+      &::before {
+        background: url(../../../../../img/loupe.png) center no-repeat;
+        transform: scale(0);
+        transition: transform 0.3s, bottom 0.3s;
+        bottom: -100px;
+      }
+      &:hover {
+        background-color: rgb(66, 83, 124, 0.5);
+      }
+      &:hover::before {
+        transform: scale(1);
+        bottom: 0px;
+      }
+    }
+    &_added {
+      position: absolute;
+      display: block;
+      background-color: rgb(154, 84, 91, 0.5);
+      &::before {
+        left: 0;
+        top: -30px;
+        background: url(../../../../../img/added.png) center / 25% no-repeat;
+      }
+    }
+    &_title {
+      letter-spacing: -0.5px;
+      width: 100%;
+      color: #fff;
+      font-size: 2rem;
+      text-align: center;
+      position: absolute;
+      bottom: 70px;
+    }
+  }
+}

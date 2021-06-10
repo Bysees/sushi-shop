@@ -1,0 +1,26 @@
+@import './assets/variables';
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0.6px;
+  font-family: $RobotoSlab, Arial, sans-serif;
+}
+
+.headerContainer {
+  background-color: #000;
+  flex-shrink: 0;
+  height: 75px;
+  padding: $container-padding;
+}
+
+.mainContainer {
+  flex: 1 0 auto;
+}
+
+.footerContainer {
+  flex: 0 0 75px;
+  background-color: #000;
+  padding: $container-padding;
+}

@@ -1,0 +1,14 @@
+.header {
+  font-size: 1.5rem;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  &__navigation {
+    //? Добавил свойство просто чтобы не удалять селектор
+    flex: 0 0 auto;
+  }
+  &__basket {
+    //? Добавил свойство просто чтобы не удалять селектор
+    flex: 0 0 auto;
+  }
+}
