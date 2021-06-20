@@ -1,0 +1,93 @@
+.item {
+  display: flex;
+  &__column-left {
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+  }
+  //!Применил к column-left flex, но потом попробывать сделать через inline-block
+  &__img {
+    // display: inline-block;
+    // vertical-align: middle;
+    height: 80px;
+    flex: 0 0 120px;
+    margin-right: 3rem;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  &__title {
+    // display: inline-block;
+    font-size: 1.9rem;
+    line-height: 2.1rem;
+  }
+  &__column-middle {
+    flex: 0 0 20%;
+    // background-color: rgb(213, 253, 79);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__price {
+    font-size: 3rem;
+    margin-right: 1.2rem;
+  }
+  .amount {
+    margin-top: 5px;
+    height: 36px;
+    &__count {
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+      min-width: 40px;
+      padding: 0 5px 0 7px;
+      line-height: 36px;
+      font-size: 2.2rem;
+      text-align: center;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+      background-color: #2c3a5c;
+    }
+    &__countBtns {
+      vertical-align: middle;
+      display: inline-block;
+      height: 100%;
+      width: 20px;
+      background-color: #1a2746;
+      font-size: 0;
+    }
+    &__add,
+    &__subtract {
+      font-size: 1.3rem;
+      line-height: 1.3rem;
+      color: #fff;
+      height: 50%;
+      width: 100%;
+      background-color: transparent;
+    }
+  }
+  &__column-right {
+    // background-color: rgb(155, 155, 250);
+    flex: 0 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+  }
+  &__totalPrice {
+    font-size: 3rem;
+    margin-right: 1rem;
+  }
+  &__remove {
+    margin-top: 2px;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url(../../../../img/del@2x.png) 100% / contain no-repeat;
+
+    // background-color: transparent;
+  }
+}

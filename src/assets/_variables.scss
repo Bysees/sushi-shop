@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500&display=swap');
+@import url('/src/fonts/PFDinTextUniversal/style.css');
 
 $container-padding: 0 calc(50vw - 650px);
-$RobotoSlab: 'Roboto Slab', serif;
+// $RobotoSlab: 'Roboto Slab', serif;
+$RobotoSlab: 'PF Din Text Universal', serif;
 
 @mixin keyframes($animation-name) {
   @-webkit-keyframes #{$animation-name} {

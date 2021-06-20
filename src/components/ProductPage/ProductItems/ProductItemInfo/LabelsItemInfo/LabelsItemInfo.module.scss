@@ -1,0 +1,21 @@
+.label {
+  display: inline-block;
+  vertical-align: middle;
+  background: url(../../../../../img/sprite2.png) no-repeat;
+  background-size: 204px 345px;
+  height: 44px;
+  width: 46px;
+  background-position-y: -52px;
+  &__vegan {
+    background-position-x: 0px;
+  }
+  &__hot {
+    background-position-x: -51px;
+  }
+  &__new {
+    background-position-x: -102px;
+  }
+  &__hit {
+    background-position-x: -156px;
+  }
+}

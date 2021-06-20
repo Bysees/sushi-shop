@@ -1,7 +1,9 @@
 import { FC } from 'react'
-import List from '../List'
+import List from '../../common/List'
 import styles from './Navigation.module.scss'
-import NavigationItem, { INavigationItem } from './NavigationItem'
+import NavigationItem, {
+  INavigationItem,
+} from './NavigationItem/NavigationItem'
 
 const navLinks: INavigationItem[] = [
   { path: '/', title: 'Главная' },

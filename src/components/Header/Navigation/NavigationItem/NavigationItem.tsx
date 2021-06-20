@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 
 export interface INavigationItem {
   path: string
@@ -8,7 +9,7 @@ export interface INavigationItem {
 const NavigationItem: FC<INavigationItem> = ({ className, path, title }) => {
   return (
     <li className={className}>
-      <a href={path}>{title}</a>
+      <NavLink to={path}>{title}</NavLink>
     </li>
   )
 }

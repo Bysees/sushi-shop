@@ -1,18 +1,17 @@
 @import './assets/variables';
 
+body {
+  overflow-y: scroll;
+}
 .wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
-  letter-spacing: 0.6px;
   font-family: $RobotoSlab, Arial, sans-serif;
 }
 
 .headerContainer {
-  background-color: #000;
-  flex-shrink: 0;
-  height: 75px;
-  padding: $container-padding;
+  flex: 0 0 60px;
 }
 
 .mainContainer {

@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   &__item {
-    flex: 0 0 33.3333%;
+    flex: 0 0 31.3333%;
+    margin: 1%;
+    &_info {
+      flex: 0 0 98%;
+      margin: 1%;
+    }
   }
 }

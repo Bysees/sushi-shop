@@ -1,0 +1,29 @@
+.structures {
+  width: 100%;
+  text-align: right;
+  &__weight {
+    font-size: 0.9rem;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 40px;
+    padding-left: 40px;
+    &::before {
+      position: absolute;
+      display: block;
+      content: '';
+      left: 0px;
+      top: -4px;
+      height: 20px;
+      width: 24px;
+      background: url(../../../../../img/weight@2x.png) 100% / contain no-repeat;
+    }
+  }
+  &__items {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &__item {
+    margin-right: 2px;
+  }
+}

@@ -1,0 +1,10 @@
+.rouble {
+  display: inline-block;
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '-';
+    top: 10%;
+    left: -5%;
+  }
+}

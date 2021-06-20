@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'PF Din Text Universal';
+    src: local('PF Din Text Universal Regular'), local('PF-Din-Text-Universal-Regular'),
+        url('PFDinTextUniversal.woff2') format('woff2'),
+        url('PFDinTextUniversal.woff') format('woff'),
+        url('PFDinTextUniversal.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }

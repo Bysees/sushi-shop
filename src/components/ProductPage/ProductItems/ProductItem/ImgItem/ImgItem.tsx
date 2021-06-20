@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import styles from './ImgItem.module.scss'
 
 interface IImgItem {
-  isAdded: boolean
+  isAdded?: boolean
   img: string
-  className: string
+  className?: string
 }
 
 const ImgItem: FC<IImgItem> = ({ className, isAdded, img }) => {

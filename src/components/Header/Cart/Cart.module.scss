@@ -5,30 +5,30 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  background: url(../../img/cart.png) 10% 50% no-repeat, #42537c;
+  background: url(../../../img/cart.png) 10% 50% no-repeat, #42537c;
   &__description {
     padding: 0 20px;
     height: 100%;
   }
   &__title {
-    margin-top: 25px;
+    margin-top: 1.2rem;
     font-size: 2rem;
     letter-spacing: -0.5px;
     transition: 0.3s;
     &_up {
-      margin-top: 10px;
+      margin-top: 0.3rem;
     }
   }
   &__price {
     word-break: none;
-    margin-top: 30px;
+    margin-top: 2rem;
     text-align: center;
     font-size: 1.3rem;
     transition: 0.3s;
     opacity: 0;
     &_up {
       opacity: 1;
-      margin-top: 10px;
+      margin-top: 0.3rem;
     }
   }
 }

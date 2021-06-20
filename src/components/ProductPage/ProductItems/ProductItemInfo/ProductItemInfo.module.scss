@@ -1,0 +1,100 @@
+@import '../../../../assets/variables';
+
+@include keyframes(appear) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.item {
+  //! Потом поменять margini у итемов наверное, а может и не надо
+  display: flex;
+  position: relative;
+  @include animation('appear 0.2s ease alternate');
+  &_unmount {
+    transition: 0.2s;
+    opacity: 0;
+  }
+  &__img {
+    flex-shrink: 0;
+    width: 60%;
+    min-height: 390px;
+    & img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  &__labels {
+    margin-bottom: 15px;
+  }
+  &__description {
+    position: relative;
+    padding: 2em;
+    flex-grow: 1;
+    color: #fff;
+    background-color: #42537c;
+    letter-spacing: 0px;
+  }
+  &__btnRemove {
+    margin-top: 5px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    & button {
+      border-radius: 50%;
+      font-size: 1.7rem;
+      height: 35px;
+      width: 35px;
+      position: relative;
+      background-color: #9a545b;
+      transition: 0.3s ease;
+      &:hover {
+        box-shadow: inset 0 0 16px 0 rgb(0 0 0 / 36%);
+      }
+      &::before,
+      &::after {
+        top: 5px;
+        display: block;
+        content: '';
+        position: absolute;
+        height: 27px;
+        width: 2px;
+        background-color: #79383e;
+      }
+      &::before {
+        left: 50%;
+        transform: rotate(45deg) translateX(-50%);
+      }
+      &::after {
+        right: 50%;
+        transform: rotate(-45deg) translateX(50%);
+      }
+    }
+  }
+  &__title {
+    font-size: 2rem;
+    margin-right: 50px;
+  }
+
+  &__ingredients {
+    margin-top: 40px;
+  }
+  &__structures {
+    margin-top: 40px;
+    margin-bottom: 80px;
+  }
+  &__price {
+    font-size: 4rem;
+    position: absolute;
+    bottom: 30px;
+  }
+  &__btnOrder {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 33px;
+  }
+}
