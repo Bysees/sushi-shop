@@ -4,8 +4,8 @@
   &__item {
     margin-right: 5px;
     white-space: nowrap;
-    &:first-child {
-      text-transform: capitalize;
+    &:first-child::first-letter {
+      text-transform: uppercase;
     }
   }
 }

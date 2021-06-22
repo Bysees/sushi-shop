@@ -3,7 +3,7 @@ import styles from './BasketItems.module.scss'
 import BasketItem from './BasketItem/BasketItem'
 
 interface IBasketItems {
-  className: string
+  className?: string
 }
 
 const BasketItems: FC<IBasketItems> = ({ className }) => {

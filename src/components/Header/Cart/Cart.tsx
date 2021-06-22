@@ -5,7 +5,7 @@ import AnimatedCounter from '../../common/AnimatedCounter'
 import { NavLink } from 'react-router-dom'
 
 interface ICart {
-  className: string
+  className?: string
 }
 
 const Cart: FC<ICart> = ({ className }) => {

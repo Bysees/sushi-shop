@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 interface IList<T> {
   items: T[]
-  renderItem: (item: T, index?: number, array?: T[]) => ReactNode
+  renderItem: (item: T, index: number, array: T[]) => ReactNode
   className?: string
 }
 

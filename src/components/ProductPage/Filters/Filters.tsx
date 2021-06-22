@@ -11,7 +11,7 @@ interface IFilters {
 const labels = ['ВСЕ', 'ОСТРОЕ', 'НОВИНКА', 'ВЕГЕТАРИАНСКОЕ', 'ХИТ']
 
 const Filters: FC<IFilters> = ({ className, getFiltredItems }) => {
-  const [activeBtn, setActiveBtn] = useState<string>()
+  const [activeBtn, setActiveBtn] = useState<string | null>(null)
 
   const onFilterHandler = (label: string) => {
     getFiltredItems(label)

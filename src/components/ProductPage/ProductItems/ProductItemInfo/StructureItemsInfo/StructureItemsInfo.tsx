@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
 import styles from './StructureItemsInfo.module.scss'
 import StructureItemInfo from './StructureItemInfo/StructureItemInfo'
-import { Istructure } from '../../../../../data/data'
+import { IDataItemStructure } from '../../../../../types/dataItem'
 
-interface IStructureItemsInfo {
-  structure: Istructure
+interface IItemStructureInfo {
+  structure: IDataItemStructure
   className?: string
 }
 
-const StructureItemsInfo: FC<IStructureItemsInfo> = ({
+const StructureItemsInfo: FC<IItemStructureInfo> = ({
   structure,
   className,
 }) => {

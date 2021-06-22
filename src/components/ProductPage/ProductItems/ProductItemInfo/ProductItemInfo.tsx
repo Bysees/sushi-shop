@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import { Idata } from '../../../../data/data'
 import styles from './ProductItemInfo.module.scss'
 import LabelsItemInfo from './LabelsItemInfo/LabelsItemInfo'
 import StructureItemsInfo from './StructureItemsInfo/StructureItemsInfo'
@@ -7,11 +6,15 @@ import IngredientsItemsInfo from './IngredientsItemsInfo/IngredientsItemsInfo'
 import cn from 'classnames'
 import Rouble from '../../../common/Rouble'
 import ButtonOrder from '../../../common/ButtonOrder'
+import { IDataItemWithKey } from '../../../../App'
+import { Omit } from 'lodash'
 
-interface IProductItemInfo extends Idata {
+interface IProductItemInfo extends Omit<IDataItemWithKey, 'id'> {
   className?: string
-  removeInfo: (index: any) => void
-  itemIndex: any
+  removeInfo: (index: number) => void
+  itemIndex: number
+  isFiltred: boolean
+  setIsFiltred: (value: boolean) => void
 }
 
 const ProductItemInfo: FC<IProductItemInfo> = ({
@@ -21,32 +24,32 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
   structure,
   labels,
   className,
-  id,
   removeInfo,
   itemIndex,
+  isFiltred,
+  setIsFiltred,
 }) => {
   const itemInfoRef = useRef<HTMLLIElement | null>(null)
 
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
 
-  const onTransitionHandler = () => {
-    removeInfo(itemIndex)
-  }
+  const onTransitionHandler = () => removeInfo(itemIndex)
 
   useEffect(() => {
-    let itemOffset: any
-    if (itemInfoRef.current?.offsetTop !== undefined) {
-      itemOffset = itemInfoRef.current?.offsetTop
+    if (itemInfoRef.current) {
+      const itemOffset = itemInfoRef.current.offsetTop
+      const itemHeightHalf = itemInfoRef.current.offsetHeight / 2
+      const windowHeightHalf = document.documentElement.clientHeight / 2
+      const scrollTo = itemOffset - windowHeightHalf + itemHeightHalf
+      window.scrollTo(0, scrollTo)
+      return () => {
+        if (isFiltred) {
+          window.scrollTo(0, 0)
+          setIsFiltred(false)
+        }
+      }
     }
-    let itemHeightHalf: any
-    if (itemInfoRef.current?.clientHeight !== undefined) {
-      itemHeightHalf = itemInfoRef.current?.offsetHeight / 2
-    }
-    let windowHeightHalf = document.documentElement.clientHeight / 2
-
-    let scrollTo = itemOffset - windowHeightHalf + itemHeightHalf
-    window.scrollTo(0, scrollTo)
-  })
+  }, [isFiltred, setIsFiltred])
 
   return (
     <li

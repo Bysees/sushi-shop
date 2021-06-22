@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './Rouble.module.scss'
 
 const Rouble = () => {

@@ -1,7 +1,7 @@
 //! Массив просто чтобы где-то были прописаны названия
 // const labels = ['new', 'hit', 'hot', 'vegan']
 
-export interface Istructure {
+export interface IDataItemStructure {
   weight: number
   protein: number
   fat: number
@@ -10,16 +10,11 @@ export interface Istructure {
   ingredients: string[]
 }
 
-export interface Idata {
+export interface IDataItem {
   id: number
   title: string
   price: number
   img: string
   labels: string[]
-  //! key не должен приходить с сервера, потом поменять логику
-  key?: string
-  structure: Istructure
+  structure: IDataItemStructure
 }
-
-//@ts-ignore
-window.sushiData = sushiData

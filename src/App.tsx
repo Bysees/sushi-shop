@@ -1,33 +1,50 @@
 import { Header, ProductPage, Footer } from './components'
 import styles from './App.module.scss'
-import { Idata } from './data/data'
-import { cloneDeep, uniqueId } from 'lodash'
+import { IDataItem } from './types/dataItem'
+import { uniqueId } from 'lodash'
 import { Route } from 'react-router-dom'
 import Basket from './components/Basket/Basket'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-//! Добавляю key_ для каждого объекта, чтобы можно было выводить инфмормационнаый блок суши и добавлять его в массив без конфилкта кеев, если использовать id будет конфилкт, т.к. объект нужно продублировать.
+//! Добавляю key_ для каждого объекта, чтобы можно было выводить инфмормационный блок суши и добавлять его в массив без конфилкта кеев, если использовать id будет конфилкт, т.к. объект нужно продублировать.
 //? В будущем имеет смысл вынести куда-нибудь эту логику, мб в селектор или делать это где-то в редаксе, но не тут же.
-const getCopyItemsWithKeys = (items: Idata[]) => {
-  const copyItems = cloneDeep(items)
-  copyItems.forEach((item) => (item.key = uniqueId('key_')))
-  return copyItems
+export interface IDataItemWithKey extends IDataItem {
+  key: string
+}
+
+function getCopyItemsWithKeys(items: IDataItem[]): IDataItemWithKey[] {
+  return items.map((item): IDataItemWithKey => {
+    return { ...item, key: uniqueId('key_') }
+  })
 }
 
 const App = () => {
-  const [sushi, setSushi] = useState<Idata[]>([])
+  const [sushi, setSushi] = useState<IDataItem[]>([])
+  const [sushiDataWithKeys, setSushiDataWithKey] = useState<IDataItemWithKey[]>(
+    []
+  )
 
   useEffect(() => {
     const getSushi = async () => {
-      const response = await axios.get('http://localhost:3001/api/sushi')
-      console.log(response.data)
+      const response = await axios.get<IDataItem[]>(
+        'http://localhost:3001/api/sushi'
+      )
       setSushi(response.data)
     }
     getSushi()
   }, [])
 
-  const sushiDataWithKeys = getCopyItemsWithKeys(sushi)
+  useEffect(() => {
+    if (sushi.length) {
+      setSushiDataWithKey(getCopyItemsWithKeys(sushi))
+    }
+  }, [sushi])
+
+  //@ts-ignore
+  window.sushi = sushi
+  //@ts-ignore
+  window.sushiDataWithKeys = sushiDataWithKeys
 
   if (!sushiDataWithKeys.length) return <div>Loading...</div>
 

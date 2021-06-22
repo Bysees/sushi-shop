@@ -15,16 +15,16 @@ const IngredientsItemsInfo: FC<IIngredientsItemsInfo> = ({
     <List
       className={className + ' ' + styles.ingredients}
       items={ingredients}
-      renderItem={(desc, index, array) => {
-        if (array?.length === undefined) return
-        if (array?.length - 1 !== index) {
+      renderItem={(ingredient, index) => {
+        const lastIngredientIndex = ingredients.length - 1
+        if (lastIngredientIndex !== index) {
           return (
-            <li className={styles.ingredients__item} key={desc}>
-              {desc},
+            <li className={styles.ingredients__item} key={ingredient}>
+              {ingredient},
             </li>
           )
         }
-        return <li key={desc}>{desc}.</li>
+        return <li key={ingredient}>{ingredient}.</li>
       }}
     />
   )

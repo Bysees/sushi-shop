@@ -4,7 +4,7 @@ import styles from './Header.module.scss'
 import { FC } from 'react'
 
 interface IHeader {
-  className: string
+  className?: string
 }
 
 const Header: FC<IHeader> = ({ className }) => {

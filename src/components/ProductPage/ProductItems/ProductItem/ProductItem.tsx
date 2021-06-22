@@ -3,9 +3,9 @@ import OrderItem from './OrderItem/OrderItem'
 import styles from './ProductItem.module.scss'
 import cn from 'classnames'
 import ImgItem from './ImgItem/ImgItem'
-import { Idata } from '../../../../data/data'
+import { IDataItemWithKey } from '../../../../App'
 
-export interface IProductItem extends Idata {
+export interface IProductItem extends IDataItemWithKey {
   className?: string
   getInfoItemId: (id: number) => void
   isViewingInfo: number | null
@@ -22,11 +22,9 @@ const ProductItem: FC<IProductItem> = React.memo(
     getInfoItemId,
     isViewingInfo,
   }) => {
-    const [isAdded, setIsAdded] = useState(false)
+    const [isAdded, setIsAdded] = useState<boolean>(false)
 
-    const showInfo = () => {
-      getInfoItemId(id)
-    }
+    const showInfo = () => getInfoItemId(id)
 
     const itemLabels = labels.map((label) => (
       <span

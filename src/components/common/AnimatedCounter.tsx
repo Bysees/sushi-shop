@@ -6,31 +6,27 @@ interface ICounter {
 }
 
 function AnimatedCounter({ count }: ICounter) {
-  const nodeRef = useRef<any>()
-  const prevCountRef = useRef<any>(0)
+  const spanRef = useRef<HTMLElement | null>(null)
+  const prevCountRef = useRef<number>(0)
 
   useEffect(() => {
     prevCountRef.current = count
-  })
+  }, [count])
   const prevCount = prevCountRef.current
 
-  let from = prevCount
-  let to = count
-
   useEffect(() => {
-    const node: any = nodeRef?.current
-
-    const controls = animate(from, to, {
+    const controls = animate(prevCount, count, {
       duration: 0.5,
       onUpdate(value) {
-        node.textContent = value.toFixed(2)
+        if (spanRef.current) {
+          spanRef.current.textContent = value.toFixed(2)
+        }
       },
     })
-
     return () => controls.stop()
-  }, [from, to])
+  }, [prevCount, count])
 
-  return <span ref={nodeRef} />
+  return <span ref={spanRef} />
 }
 
 export default AnimatedCounter

@@ -12,7 +12,7 @@ const navLinks: INavigationItem[] = [
 ]
 
 interface INavigation {
-  className: string
+  className?: string
 }
 
 const Navigation: FC<INavigation> = ({ className }) => {
