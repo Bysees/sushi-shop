@@ -97,6 +97,7 @@ const ProductItems: FC<IProductItems> = ({
               labels={item.labels}
               title={item.title}
               price={item.price}
+              id={item.id}
             />
           )
         }}

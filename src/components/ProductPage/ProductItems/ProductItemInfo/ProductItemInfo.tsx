@@ -7,9 +7,12 @@ import cn from 'classnames'
 import Rouble from '../../../common/Rouble'
 import ButtonOrder from '../../../common/ButtonOrder'
 import { IDataItemWithKey } from '../../../../App'
-import { Omit } from 'lodash'
+import ImgItem from '../../../common/ImgItem/ImgItem'
+import { addItem } from '../../../../store/basketReducer'
+import { useTypedDispatch } from '../../../../hooks/useTypedDispatch'
+import { useOrderCount } from '../../../../hooks/useOrderCount'
 
-interface IProductItemInfo extends Omit<IDataItemWithKey, 'id'> {
+interface IProductItemInfo extends IDataItemWithKey {
   className?: string
   removeInfo: (index: number) => void
   itemIndex: number
@@ -28,8 +31,11 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
   itemIndex,
   isFiltred,
   setIsFiltred,
+  id,
 }) => {
   const itemInfoRef = useRef<HTMLLIElement | null>(null)
+
+  const [orderedItemCount, setOrderItemCount] = useOrderCount(id, price)
 
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
 
@@ -60,9 +66,12 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
         styles.item,
         isUnmounting && styles.item_unmount
       )}>
-      <div className={styles.item__img}>
-        <img src={img} alt='sushi-sake' />
-      </div>
+      <ImgItem
+        info
+        className={styles.item__img}
+        img={img}
+        orderedItemCount={orderedItemCount}
+      />
       <div className={styles.item__description}>
         <div
           onTransitionEnd={(e) => e.stopPropagation()}
@@ -85,6 +94,7 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
           {price} <Rouble />
         </div>
         <div
+          onClick={setOrderItemCount}
           onTransitionEnd={(e) => e.stopPropagation()}
           className={styles.item__btnOrder}>
           <ButtonOrder children={'Заказать'} big />

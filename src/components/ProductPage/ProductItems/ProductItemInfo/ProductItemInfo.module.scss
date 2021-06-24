@@ -10,7 +10,7 @@
 }
 
 .item {
-  //! Потом поменять margini у итемов наверное, а может и не надо
+  //! Потом поменять margin's у итемов наверное, а может и не надо
   display: flex;
   position: relative;
   @include animation('appear 0.2s ease alternate');

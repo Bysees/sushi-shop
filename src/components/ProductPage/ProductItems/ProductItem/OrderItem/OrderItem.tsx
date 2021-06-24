@@ -1,14 +1,15 @@
-import { FC } from 'react'
+import { FC, MouseEvent } from 'react'
 import styles from './OrderItem.module.scss'
 import Rouble from '../../../../common/Rouble'
 import ButtonOrder from '../../../../common/ButtonOrder'
 
 interface IOrderItem {
   price: number
-  className: string
+  className?: string
+  orderClickHandler: (e: MouseEvent) => void
 }
 
-const OrderItem: FC<IOrderItem> = ({ price, className }) => {
+const OrderItem: FC<IOrderItem> = ({ orderClickHandler, price, className }) => {
   return (
     <div className={className + ' ' + styles.order}>
       <div className={styles.order__price}>
@@ -17,7 +18,7 @@ const OrderItem: FC<IOrderItem> = ({ price, className }) => {
           <Rouble />
         </span>
       </div>
-      <div className={styles.order__btn}>
+      <div onClick={orderClickHandler} className={styles.order__btn}>
         <ButtonOrder children='Заказать' />
       </div>
     </div>

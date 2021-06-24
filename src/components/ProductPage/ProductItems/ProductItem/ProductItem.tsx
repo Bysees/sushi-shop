@@ -1,9 +1,12 @@
-import React, { FC, useState } from 'react'
+import React, { FC, MouseEvent, useState } from 'react'
 import OrderItem from './OrderItem/OrderItem'
 import styles from './ProductItem.module.scss'
 import cn from 'classnames'
-import ImgItem from './ImgItem/ImgItem'
+import ImgItem from '../../../common/ImgItem/ImgItem'
 import { IDataItemWithKey } from '../../../../App'
+// import { addItem } from '../../../../store/basketReducer'
+// import { useTypedDispatch } from '../../../../hooks/useTypedDispatch'
+import { useOrderCount } from '../../../../hooks/useOrderCount'
 
 export interface IProductItem extends IDataItemWithKey {
   className?: string
@@ -22,7 +25,12 @@ const ProductItem: FC<IProductItem> = React.memo(
     getInfoItemId,
     isViewingInfo,
   }) => {
-    const [isAdded, setIsAdded] = useState<boolean>(false)
+    const [orderedItemCount, setOrderItemCount] = useOrderCount(id, price)
+
+    const addOrderItemCount = (e: MouseEvent) => {
+      e.stopPropagation()
+      setOrderItemCount()
+    }
 
     const showInfo = () => getInfoItemId(id)
 
@@ -46,15 +54,20 @@ const ProductItem: FC<IProductItem> = React.memo(
           styles.item,
           isViewingInfo === id && styles.item_viewed
         )}>
-        <ImgItem className={styles.item__img} img={img} isAdded={isAdded} />
-        <div
-          style={{ cursor: 'pointer' }}
-          onClick={() => setIsAdded(!isAdded)}
-          className={styles.item__title}>
+        <ImgItem
+          className={styles.item__img}
+          img={img}
+          orderedItemCount={orderedItemCount}
+        />
+        <div className={styles.item__title}>
           {itemLabels}
           {title}
         </div>
-        <OrderItem className={styles.item__order} price={price} />
+        <OrderItem
+          orderClickHandler={addOrderItemCount}
+          className={styles.item__order}
+          price={price}
+        />
       </li>
     )
   }
