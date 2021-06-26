@@ -6,10 +6,8 @@ import IngredientsItemsInfo from './IngredientsItemsInfo/IngredientsItemsInfo'
 import cn from 'classnames'
 import Rouble from '../../../common/Rouble'
 import ButtonOrder from '../../../common/ButtonOrder'
-import { IDataItemWithKey } from '../../../../App'
+import { IDataItemWithKey } from '../../ProductPage'
 import ImgItem from '../../../common/ImgItem/ImgItem'
-import { addItem } from '../../../../store/basketReducer'
-import { useTypedDispatch } from '../../../../hooks/useTypedDispatch'
 import { useOrderCount } from '../../../../hooks/useOrderCount'
 
 interface IProductItemInfo extends IDataItemWithKey {
@@ -38,7 +36,6 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
   const [orderedItemCount, setOrderItemCount] = useOrderCount(id, price)
 
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
-
   const onTransitionHandler = () => removeInfo(itemIndex)
 
   useEffect(() => {
@@ -48,11 +45,14 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
       const windowHeightHalf = document.documentElement.clientHeight / 2
       const scrollTo = itemOffset - windowHeightHalf + itemHeightHalf
       window.scrollTo(0, scrollTo)
-      return () => {
-        if (isFiltred) {
-          window.scrollTo(0, 0)
-          setIsFiltred(false)
-        }
+    }
+  })
+
+  useEffect(() => {
+    return () => {
+      if (isFiltred) {
+        window.scrollTo(0, 0)
+        setIsFiltred(false)
       }
     }
   }, [isFiltred, setIsFiltred])

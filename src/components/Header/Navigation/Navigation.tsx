@@ -7,8 +7,8 @@ import NavigationItem, {
 
 const navLinks: INavigationItem[] = [
   { path: '/', title: 'Главная' },
-  { path: '/', title: 'Меню' },
-  { path: '/', title: 'Акции' },
+  { path: '/sushi', title: 'Суши' },
+  { path: '/rolls', title: 'Роллы' },
 ]
 
 interface INavigation {

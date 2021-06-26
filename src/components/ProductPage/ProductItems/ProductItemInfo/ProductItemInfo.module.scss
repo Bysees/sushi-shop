@@ -13,9 +13,9 @@
   //! Потом поменять margin's у итемов наверное, а может и не надо
   display: flex;
   position: relative;
-  @include animation('appear 0.2s ease alternate');
+  @include animation('appear 0.3s ease alternate');
   &_unmount {
-    transition: 0.2s;
+    transition: 0.3s;
     opacity: 0;
   }
   &__img {

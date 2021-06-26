@@ -1,15 +1,16 @@
 import React, { FC } from 'react'
 import styles from './BasketItem.module.scss'
-import image from '../../../../img/sushi/sushi_ebi.jpg'
 import Rouble from '../../../common/Rouble'
 
 interface IBasketItem {
   className?: string
+  img: string
+  title: string
+  price: number
+  id: number
 }
 
-const BasketItem: FC<IBasketItem> = ({ className }) => {
-  const title = 'СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ КРЕВЕТКА (3 ШТ.)'
-  const price = 270
+const BasketItem: FC<IBasketItem> = ({ className, img, title, id, price }) => {
   const totalPrice = 270
   const count = 1
 
@@ -17,7 +18,7 @@ const BasketItem: FC<IBasketItem> = ({ className }) => {
     <div className={className + ' ' + styles.item}>
       <div className={styles['item__column-left']}>
         <div className={styles.item__img}>
-          <img src={image} alt='sushi' />
+          <img src={img} alt='sushi' />
         </div>
         <div className={styles.item__title}>{title}</div>
       </div>

@@ -17,12 +17,14 @@ export type InitialStateType = {
   totalCount: number
   amount: number
   items: ItemsType[]
+  fetchedItems: any[]
 }
 
 const initialState: InitialStateType = {
   totalCount: 0,
   amount: 0,
   items: [],
+  fetchedItems: [],
 }
 
 const basketSlice = createSlice({
@@ -68,8 +70,11 @@ const basketSlice = createSlice({
 
       state.items = state.items.filter((item) => item.count !== 0)
     },
+    getFetchedItems: (state, action) => {
+      state.fetchedItems = action.payload
+    },
   },
 })
 
-export const { addItem, removeItem } = basketSlice.actions
+export const { addItem, removeItem, getFetchedItems } = basketSlice.actions
 export default basketSlice.reducer

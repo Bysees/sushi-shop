@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import ProductItem from './ProductItem/ProductItem'
 import { cloneDeep } from 'lodash'
 import ProductItemInfo from './ProductItemInfo/ProductItemInfo'
-import { IDataItemWithKey } from '../../../App'
+import { IDataItemWithKey } from '../ProductPage'
 
 interface IProductItems {
   items: IDataItemWithKey[]
@@ -59,7 +59,9 @@ const ProductItems: FC<IProductItems> = ({
 
   function removeInfo(itemInfoIndex: number) {
     setIsViewingInfo(null)
-    setCloneItems(cloneItems.filter((item, index) => index !== itemInfoIndex))
+    setCloneItems((cloneItems) => {
+      return cloneItems.filter((item, index) => index !== itemInfoIndex)
+    })
   }
 
   return (

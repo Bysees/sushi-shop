@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import List from '../../../../common/List'
 import styles from './IngredientsItemsInfo.module.scss'
 
 interface IIngredientsItemsInfo {
@@ -11,22 +10,22 @@ const IngredientsItemsInfo: FC<IIngredientsItemsInfo> = ({
   ingredients,
   className,
 }) => {
+  const ingredientsText = ingredients.map((item, index) => {
+    const lastIngredientIndex = ingredients.length - 1
+    if (lastIngredientIndex !== index) {
+      return (
+        <span key={item} className={styles.ingredients__item}>
+          {item},{' '}
+        </span>
+      )
+    }
+    return <span key={item}>{item}.</span>
+  })
+
   return (
-    <List
-      className={className + ' ' + styles.ingredients}
-      items={ingredients}
-      renderItem={(ingredient, index) => {
-        const lastIngredientIndex = ingredients.length - 1
-        if (lastIngredientIndex !== index) {
-          return (
-            <li className={styles.ingredients__item} key={ingredient}>
-              {ingredient},
-            </li>
-          )
-        }
-        return <li key={ingredient}>{ingredient}.</li>
-      }}
-    />
+    <div className={className + ' ' + styles.ingredients}>
+      {ingredientsText}
+    </div>
   )
 }
 
