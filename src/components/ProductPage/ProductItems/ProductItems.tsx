@@ -4,15 +4,15 @@ import { FC, useEffect, useState } from 'react'
 import ProductItem from './ProductItem/ProductItem'
 import { cloneDeep } from 'lodash'
 import ProductItemInfo from './ProductItemInfo/ProductItemInfo'
-import { IDataItemWithKey } from '../ProductPage'
+import { IDataItemWithKey } from '../../../store/types/productItems'
 
 interface IProductItems {
   items: IDataItemWithKey[]
   className?: string
-  isViewingInfo: number | null
-  setIsViewingInfo: (value: number | null) => void
+  isViewingInfo: string | null
+  setIsViewingInfo: (id: string | null) => void
   isFiltred: boolean
-  setIsFiltred: (value: boolean) => void
+  setIsFiltred: (isFiltred: boolean) => void
 }
 
 const ProductItems: FC<IProductItems> = ({
@@ -31,7 +31,7 @@ const ProductItems: FC<IProductItems> = ({
     setCloneItems(cloneDeep(items))
   }, [items])
 
-  const isShowInfoItem = (id: number) => {
+  const isShowInfoItem = (id: string) => {
     cloneItems.forEach((item, index) => {
       if (item.key === keyInfo) {
         removeInfo(index)
@@ -42,7 +42,7 @@ const ProductItems: FC<IProductItems> = ({
     }
   }
 
-  function showInfo(id: number) {
+  function showInfo(id: string) {
     setIsViewingInfo(id)
     setCloneItems((cloneItems) => {
       const copyItems = [...cloneItems]

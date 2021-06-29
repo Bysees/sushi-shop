@@ -2,48 +2,23 @@ import styles from './ProductPage.module.scss'
 import Filters from './Filters/Filters'
 import { FC, useEffect, useState } from 'react'
 import ProductItems from './ProductItems/ProductItems'
-import {
-  getItemsWithKey,
-  fetchItems,
-  removeItems,
-} from '../../store/itemsReducer'
-import { useTypedDispatch } from '../../hooks/useTypedDispatch'
-import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { IDataItem } from '../../types/dataItem'
+import { IDataItemWithKey } from '../../store/types/productItems'
 
 interface IProductPage {
-  itemsName: string
+  items: IDataItemWithKey[]
   title: string
   className?: string
 }
 
-export interface IDataItemWithKey extends IDataItem {
-  key: string
-}
-
-const ProductPage: FC<IProductPage> = ({ title, itemsName, className }) => {
-  //? При перепрыгивании с Суши на Роллы, номера ключей не пересоздаются, а вычисляются относительно предыдущих, это не то как я хотел. Да и вообще что-то тут не чисто. Не ясно почему не ухожу в бесконечный луп, если каждый раз возвращается новый объект в itemsWithKeys и useEffect как-бы должен на это реагировать.
-  const itemsWithKeys = useTypedSelector(getItemsWithKey)
-
+const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   const [currentItems, setCurrentItems] = useState<IDataItemWithKey[]>([])
 
-  const dispatch = useTypedDispatch()
-
   useEffect(() => {
-    dispatch(fetchItems(itemsName))
-    return () => {
-      dispatch(removeItems())
-    }
-  }, [dispatch, itemsName])
-
-  useEffect(() => {
-    console.log('render')
-
-    setCurrentItems(itemsWithKeys)
-  }, [itemsWithKeys])
+    setCurrentItems(items)
+  }, [items])
 
   //! Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
-  const [isViewingInfo, setIsViewingInfo] = useState<number | null>(null)
+  const [isViewingInfo, setIsViewingInfo] = useState<string | null>(null)
 
   //! Нужно, чтобы в случае размонтирования profileInfoItem посредством фильтрации массива (переключения на другую вкладку),
   //! позиция страницы должна сместиться в 0 (то есть вверх страницы).
@@ -53,7 +28,7 @@ const ProductPage: FC<IProductPage> = ({ title, itemsName, className }) => {
     setIsViewingInfo(null)
     setIsFiltred(true)
     if (label === 'ВСЕ') {
-      setCurrentItems(itemsWithKeys)
+      setCurrentItems(items)
       return
     }
 
@@ -62,14 +37,8 @@ const ProductPage: FC<IProductPage> = ({ title, itemsName, className }) => {
     if (label === 'ХИТ') label = 'hit'
     if (label === 'ВЕГЕТАРИАНСКОЕ') label = 'vegan'
 
-    const filtredItems = itemsWithKeys.filter((item) =>
-      item.labels.includes(label)
-    )
+    const filtredItems = items.filter((item) => item.labels.includes(label))
     setCurrentItems(filtredItems)
-  }
-
-  if (!currentItems.length) {
-    return <div style={{ flex: '1 0 auto' }}>Loading...</div>
   }
 
   return (

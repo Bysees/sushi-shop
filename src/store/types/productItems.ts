@@ -11,10 +11,19 @@ export interface IDataItemStructure {
 }
 
 export interface IDataItem {
-  id: number
+  id: string
   title: string
   price: number
   img: string
   labels: string[]
   structure: IDataItemStructure
+}
+
+export interface IDataItemWithKey extends IDataItem {
+  key: string
+}
+
+export interface IDataItems<T> {
+  sushi: T[]
+  rolls: T[]
 }

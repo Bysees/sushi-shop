@@ -3,13 +3,13 @@ import OrderItem from './OrderItem/OrderItem'
 import styles from './ProductItem.module.scss'
 import cn from 'classnames'
 import ImgItem from '../../../common/ImgItem/ImgItem'
-import { IDataItemWithKey } from '../../ProductPage'
+import { IDataItemWithKey } from '../../../../store/types/productItems'
 import { useOrderCount } from '../../../../hooks/useOrderCount'
 
 export interface IProductItem extends IDataItemWithKey {
   className?: string
-  getInfoItemId: (id: number) => void
-  isViewingInfo: number | null
+  getInfoItemId: (id: string) => void
+  isViewingInfo: string | null
 }
 
 const ProductItem: FC<IProductItem> = ({

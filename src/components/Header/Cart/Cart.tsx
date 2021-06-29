@@ -3,12 +3,17 @@ import { FC } from 'react'
 import cn from 'classnames'
 import AnimatedCounter from '../../common/AnimatedCounter'
 import { NavLink } from 'react-router-dom'
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import { getAmount } from '../../../store/reducers/basket'
+import Rouble from '../../common/Rouble'
 
 interface ICart {
   className?: string
 }
 
 const Cart: FC<ICart> = ({ className }) => {
+  const amount = useTypedSelector(getAmount)
+
   return (
     <div className={className + ' ' + styles.basket}>
       <NavLink to='/basket'>
@@ -16,16 +21,16 @@ const Cart: FC<ICart> = ({ className }) => {
           <div
             className={cn(
               [styles.basket__title],
-              !!true && [styles.basket__title_up]
+              amount && [styles.basket__title_up]
             )}>
             КОРЗИНА
           </div>
           <div
             className={cn(
               [styles.basket__price],
-              !!true && [styles.basket__price_up]
+              amount && [styles.basket__price_up]
             )}>
-            <AnimatedCounter count={100} /> р
+            <AnimatedCounter count={amount} /> <Rouble />
           </div>
         </div>
       </NavLink>

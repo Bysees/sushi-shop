@@ -1,9 +1,11 @@
 import { useTypedSelector } from './useTypedSelector'
 import { useTypedDispatch } from './useTypedDispatch'
-import { addItem } from '../store/basketReducer'
+import { addItem } from '../store/reducers/basket'
 
+//! Подумать над тем, можно ли сделать данный хук таким, чтобы использовать его во всех компонентах.
+//! То есть добавить сюда substrucItem, removeItem, либо же вообще убрать этот хук и вынести всю хуйню в селектор? Подумать короч.
 export const useOrderCount = (
-  id: number,
+  id: string,
   price: number
 ): [number, () => void] => {
   const dispatch = useTypedDispatch()

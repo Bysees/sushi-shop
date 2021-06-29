@@ -6,7 +6,7 @@ import IngredientsItemsInfo from './IngredientsItemsInfo/IngredientsItemsInfo'
 import cn from 'classnames'
 import Rouble from '../../../common/Rouble'
 import ButtonOrder from '../../../common/ButtonOrder'
-import { IDataItemWithKey } from '../../ProductPage'
+import { IDataItemWithKey } from '../../../../store/types/productItems'
 import ImgItem from '../../../common/ImgItem/ImgItem'
 import { useOrderCount } from '../../../../hooks/useOrderCount'
 
