@@ -1,32 +1,18 @@
+import { IDataItemWithKey } from './../types/productItems'
 import { RootState } from './../store'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getKeys } from './productItems'
-import { IBasketItem } from '../../components/Basket/BasketItems/BasketItem/BasketItem'
-
-type addItemType = {
-  id: string
-  price: number
-}
-
-type SubtractItemType = addItemType
-type RemoveItemType = { id: string }
-
-type ItemsType = {
-  id: null | string
-  totalPrice: number
-  count: number
-}
-
-export type BasketState = {
-  totalCount: number
-  amount: number
-  items: ItemsType[]
-}
+import {
+  addItemType,
+  BasketState,
+  orderedItemType,
+  RemoveItemType,
+  SubtractItemType,
+} from '../types/basket'
 
 const initialState: BasketState = {
   totalCount: 0,
   amount: 0,
-  items: [],
+  orderedItems: [],
 }
 
 const basketSlice = createSlice({
@@ -34,7 +20,7 @@ const basketSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<addItemType>) => {
-      const hasItem = state.items.find((item) => {
+      const hasItem = state.orderedItems.find((item) => {
         if (item.id === action.payload.id) {
           item.totalPrice += action.payload.price
           item.count += 1
@@ -44,76 +30,113 @@ const basketSlice = createSlice({
       })
 
       if (!hasItem) {
-        state.items.push({
+        state.orderedItems.push({
           id: action.payload.id,
           totalPrice: action.payload.price,
           count: 1,
         })
       }
-      //! Возможно имеет смысл вынести логику с добавлением / удалением amount и totalCount
+      //! Возможно имеет смысл вынести логику с добавлением / убавлением amount и totalCount
       //! в отдельные экшены, но эта логика будет использоваться только тут, и короче пока не знаю.
-      state.amount = state.items.reduce(
+      state.amount = state.orderedItems.reduce(
         (acum, item) => acum + item.totalPrice,
         0
       )
-      state.totalCount = state.items.reduce(
+      state.totalCount = state.orderedItems.reduce(
         (acum, item) => acum + item.count,
         0
       )
     },
     subtractItem: (state, action: PayloadAction<SubtractItemType>) => {
-      state.items.forEach((item) => {
+      state.orderedItems.forEach((item) => {
         if (item.id === action.payload.id && item.count !== 0) {
           item.totalPrice -= action.payload.price
           item.count -= 1
-          //! Возможно имеет смысл вынести логику с добавлением / удалением amount и totalCount
+          //! Возможно имеет смысл вынести логику с добавлением / убавлением amount и totalCount
           //! в отдельные экшены, но эта логика будет использоваться только тут, и короче пока не знаю.
           state.amount -= action.payload.price
           state.totalCount -= 1
         }
       })
 
-      state.items = state.items.filter((item) => item.count !== 0)
+      state.orderedItems = state.orderedItems.filter((item) => item.count !== 0)
     },
     removeItem: (state, action: PayloadAction<RemoveItemType>) => {
-      state.items.forEach((item) => {
+      state.orderedItems.forEach((item) => {
         if (item.id === action.payload.id) {
-          console.log(item.totalPrice)
           state.amount -= item.totalPrice
         }
       })
-      state.items = state.items.filter((item) => item.id !== action.payload.id)
+      state.orderedItems = state.orderedItems.filter(
+        (item) => item.id !== action.payload.id
+      )
     },
   },
 })
 
-//? selector
-export const getOrderedItems = ({ basket, items }: RootState) => {
-  const basketOrderItems: IBasketItem[] = []
+//? selectors
 
-  //? Ахуенно я сделал кончено тройную вложенность, теперь надо думать как это преобразовать.
-  //! Обязательно разобраться как оптимизировать эти циклы и уменьшить сложность выполнения!
-  getKeys(items).forEach((key) => {
-    basket.items.forEach((orderItem) => {
-      items[key].forEach((item) => {
-        if (orderItem.id === item.id) {
-          basketOrderItems.push({
-            id: orderItem.id,
-            totalPrice: orderItem.totalPrice,
-            count: orderItem.count,
-            price: item.price,
-            img: item.img,
-            title: item.title,
-          })
-        }
-      })
-    })
+export const getOrderedItemsId = ({ basket }: RootState): string[] => {
+  return basket.orderedItems.map((item) => item.id)
+}
+
+export const getOrderedItemData = (
+  { basket: { orderedItems }, items }: RootState,
+  id: string
+): orderedItemType => {
+  const orderedItem = {} as orderedItemType
+
+  const itemsCopy: IDataItemWithKey[] = Object.values(items).flat().concat()
+  const orderedItemsCopy = orderedItems.concat()
+
+  const sortById = (a: { id: string }, b: { id: string }) => {
+    return a.id < b.id ? -1 : 1
+  }
+
+  itemsCopy.sort(sortById)
+  orderedItemsCopy.sort(sortById)
+
+  let i = 0
+  let o = 0
+  while (itemsCopy.length > i && orderedItemsCopy.length > o) {
+    if (itemsCopy[i].id !== id && orderedItemsCopy[o].id !== id) {
+      o++
+      i++
+    }
+    if (itemsCopy[i].id === id && orderedItemsCopy[o].id !== id) {
+      o++
+    }
+    if (itemsCopy[i].id !== id && orderedItemsCopy[o].id === id) {
+      i++
+    }
+    if (itemsCopy[i].id === id && orderedItemsCopy[o].id === id) {
+      orderedItem.totalPrice = orderedItemsCopy[o].totalPrice
+      orderedItem.count = orderedItemsCopy[o].count
+      orderedItem.price = itemsCopy[i].price
+      orderedItem.img = itemsCopy[i].img
+      orderedItem.title = itemsCopy[i].title
+      break
+    }
+  }
+
+  return orderedItem
+}
+
+export const getOrderedItemsCount = (
+  { basket: { orderedItems } }: RootState,
+  id: string
+) => {
+  let count = 0
+  orderedItems.forEach((order) => {
+    if (order.id === id) {
+      count = order.count
+    }
   })
 
-  return basketOrderItems
+  return count
 }
 
 export const getAmount = ({ basket }: RootState) => basket.amount
 
-export const { addItem, subtractItem, removeItem } = basketSlice.actions
+export const actions = basketSlice.actions
 export default basketSlice.reducer

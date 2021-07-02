@@ -10,23 +10,27 @@ interface IBasket {
 }
 
 const Basket: FC<IBasket> = ({ className }) => {
-  //! Возможно лучше стоит перенести сюда так-же селектор из BasketItems, а то выходит что я его вызываю на двух уровнях, а это вроде как хреново, получается 2 раза будут дёргаться компоненты. Вообщем разобраться...
-  const amount = useTypedSelector(getAmount)
-
   return (
     <div className={className + ' ' + styles.wrapper}>
       <div className={styles.basket}>
         <h2 className={styles.basket__title}>Вы выбрали</h2>
-        {/* //! Пока передаю пустой массив, мб в будущем пригодиться если перенесу логику получения итемов в этот компонент */}
-        <BasketItems items={[]} className={styles.basket__items} />
+        <BasketItems className={styles.basket__items} />
         <div className={styles.basket__amount + ' ' + styles.amount}>
           <span className={styles.amount__title}>Итого: </span>
-          <span className={styles.amount__sum}>
-            {amount} <Rouble />
-          </span>
+          <BasketAmount />
         </div>
       </div>
     </div>
+  )
+}
+
+//! Наверное потом вынести в отдельную папку, хотя...
+const BasketAmount = () => {
+  const amount = useTypedSelector(getAmount)
+  return (
+    <span className={styles.amount__sum}>
+      {amount} <Rouble />
+    </span>
   )
 }
 

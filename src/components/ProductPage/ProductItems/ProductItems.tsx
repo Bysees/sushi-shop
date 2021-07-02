@@ -23,7 +23,7 @@ const ProductItems: FC<IProductItems> = ({
   isFiltred,
   setIsFiltred,
 }) => {
-  //! keyInfo нужен для того, чтобы обозначить компонент, который мы сейчас просматриваем ProductItemInfo.
+  //? keyInfo нужен для того, чтобы обозначить компонент, который мы сейчас 'просматриваем' в ProductItemInfo.
   const keyInfo = 'key_info'
 
   const [cloneItems, setCloneItems] = useState<IDataItemWithKey[]>([])
@@ -59,9 +59,7 @@ const ProductItems: FC<IProductItems> = ({
 
   function removeInfo(itemInfoIndex: number) {
     setIsViewingInfo(null)
-    setCloneItems((cloneItems) => {
-      return cloneItems.filter((item, index) => index !== itemInfoIndex)
-    })
+    setCloneItems(cloneDeep(items))
   }
 
   return (

@@ -1,3 +1,14 @@
+@import './../../../assets/variables';
+
+@include keyframes(appear) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .item {
   position: relative;
   & img {
@@ -18,7 +29,6 @@
       width: 100%;
     }
     &_info {
-      transition: 0.3s;
       &::before {
         background: url(../../../img/loupe.png) center no-repeat;
         transform: scale(0);
@@ -35,6 +45,7 @@
     }
     &_added {
       display: block;
+      @include animation('appear 0.3s ease');
       background-color: rgb(154, 84, 91, 0.5);
       &::before {
         left: 0;

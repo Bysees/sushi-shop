@@ -16,7 +16,7 @@ const App = () => {
     dispatch(fetchItems())
   }, [dispatch])
 
-  //!Пока такого типа проверка, потом сдеать нормальную
+  //! Пока такого типа проверка, потом сдеать нормальную
   if (!items.rolls.length) {
     return <div style={{ flex: '1 0 auto' }}>Loading...</div>
   }
@@ -35,7 +35,7 @@ const App = () => {
         </div>
       </Route>
 
-      {productItems(items).map((item) => {
+      {getProductItems(items).map((item) => {
         return (
           <Route key={item.path} path={item.path}>
             <ProductPage
@@ -52,7 +52,7 @@ const App = () => {
   )
 }
 
-function productItems(items: IDataItems<IDataItemWithKey>) {
+function getProductItems(items: IDataItems<IDataItemWithKey>) {
   interface IproductItem {
     title: string
     path: string

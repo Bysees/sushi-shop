@@ -8,7 +8,9 @@ import Rouble from '../../../common/Rouble'
 import ButtonOrder from '../../../common/ButtonOrder'
 import { IDataItemWithKey } from '../../../../store/types/productItems'
 import ImgItem from '../../../common/ImgItem/ImgItem'
-import { useOrderCount } from '../../../../hooks/useOrderCount'
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
+import { getOrderedItemsCount } from '../../../../store/reducers/basket'
+import { addItem } from '../../../../store/actions/basket'
 
 interface IProductItemInfo extends IDataItemWithKey {
   className?: string
@@ -33,7 +35,9 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
 }) => {
   const itemInfoRef = useRef<HTMLLIElement | null>(null)
 
-  const [orderedItemCount, setOrderItemCount] = useOrderCount(id, price)
+  const orderedItemCount = useTypedSelector((state) =>
+    getOrderedItemsCount(state, id)
+  )
 
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
   const onTransitionHandler = () => removeInfo(itemIndex)
@@ -94,7 +98,7 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
           {price} <Rouble />
         </div>
         <div
-          onClick={setOrderItemCount}
+          onClick={() => addItem(id, price)}
           onTransitionEnd={(e) => e.stopPropagation()}
           className={styles.item__btnOrder}>
           <ButtonOrder children={'Заказать'} big />

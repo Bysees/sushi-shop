@@ -17,11 +17,11 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
     setCurrentItems(items)
   }, [items])
 
-  //! Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
+  //? Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
   const [isViewingInfo, setIsViewingInfo] = useState<string | null>(null)
 
-  //! Нужно, чтобы в случае размонтирования profileInfoItem посредством фильтрации массива (переключения на другую вкладку),
-  //! позиция страницы должна сместиться в 0 (то есть вверх страницы).
+  //? Нужно, чтобы в случае размонтирования profileInfoItem посредством фильтрации массива (переключения на другую вкладку),
+  //? позиция страницы сместилась в 0 (то есть вверх страницы).
   const [isFiltred, setIsFiltred] = useState<boolean>(false)
 
   const getFiltredItems = (label: string) => {

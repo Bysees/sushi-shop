@@ -15,7 +15,7 @@ const IngredientsItemsInfo: FC<IIngredientsItemsInfo> = ({
     if (lastIngredientIndex !== index) {
       return (
         <span key={item} className={styles.ingredients__item}>
-          {item},{' '}
+          {item},
         </span>
       )
     }

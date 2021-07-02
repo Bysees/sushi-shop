@@ -1,17 +1,14 @@
-import { IDataItemWithKey, IDataItem, IDataItems } from '../types/productItems'
+import {
+  IDataItemWithKey,
+  IDataItem,
+  IDataItems,
+  getKeys,
+  fetchedItemsWithKeys,
+} from '../types/productItems'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { uniqueId } from 'lodash'
 import { RootState } from '../store'
-
-type fetchedItemsWithKeys = Record<
-  keyof IDataItems<IDataItemWithKey>,
-  IDataItemWithKey[]
->
-
-export const getKeys = Object.keys as <T extends object>(
-  obj: T
-) => Array<keyof T>
 
 function getCopyItemsWithKeys(items: IDataItem[]): IDataItemWithKey[] {
   return items.map((item): IDataItemWithKey => {
@@ -26,11 +23,7 @@ export const fetchItems = createAsyncThunk(
       const response = await axios.get<IDataItems<IDataItem>>(
         `http://localhost:3001/api/items`
       )
-
-      const itemsWithKeys: fetchedItemsWithKeys = {
-        rolls: [],
-        sushi: [],
-      }
+      const itemsWithKeys = {} as fetchedItemsWithKeys
 
       getKeys(response.data).forEach((key) => {
         itemsWithKeys[key] = getCopyItemsWithKeys(response.data[key])
@@ -64,7 +57,7 @@ const productItemsSlice = createSlice({
   },
 })
 
-//? it selector
+//? selectors
 export const getItems = ({ items }: RootState) => items
 
 export default productItemsSlice.reducer

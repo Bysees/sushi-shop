@@ -4,7 +4,9 @@ import styles from './ProductItem.module.scss'
 import cn from 'classnames'
 import ImgItem from '../../../common/ImgItem/ImgItem'
 import { IDataItemWithKey } from '../../../../store/types/productItems'
-import { useOrderCount } from '../../../../hooks/useOrderCount'
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
+import { getOrderedItemsCount } from '../../../../store/reducers/basket'
+import { addItem } from '../../../../store/actions/basket'
 
 export interface IProductItem extends IDataItemWithKey {
   className?: string
@@ -22,11 +24,16 @@ const ProductItem: FC<IProductItem> = ({
   getInfoItemId,
   isViewingInfo,
 }) => {
-  const [orderedItemCount, setOrderItemCount] = useOrderCount(id, price)
+  const orderedItemCount = useTypedSelector((state) =>
+    getOrderedItemsCount(state, id)
+  )
 
+  //! Возможно потом надо будет сделать addEventListener на родителе, потому что
+  //! Во первых так мы передаём в каждую компоненту отдельную функцию.
+  //! Во вторых stopPropagation может мешать, если мы будем собирать статистику.
   const addOrderItemCount = (e: MouseEvent) => {
     e.stopPropagation()
-    setOrderItemCount()
+    addItem(id, price)
   }
 
   const showInfo = () => getInfoItemId(id)

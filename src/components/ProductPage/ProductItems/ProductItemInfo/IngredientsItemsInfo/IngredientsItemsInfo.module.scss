@@ -1,8 +1,15 @@
 .ingredients {
   font-size: 1.2rem;
+  margin-left: -3px;
+  & span {
+    margin-left: 3px;
+  }
   &__item {
-    &:first-child:first-letter {
-      text-transform: uppercase;
+    display: inline-block;
+    &:first-child {
+      &::first-letter {
+        text-transform: uppercase;
+      }
     }
   }
 }

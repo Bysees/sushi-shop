@@ -27,3 +27,12 @@ export interface IDataItems<T> {
   sushi: T[]
   rolls: T[]
 }
+
+export type fetchedItemsWithKeys = Record<
+  keyof IDataItems<IDataItemWithKey>,
+  IDataItemWithKey[]
+>
+
+export const getKeys = Object.keys as <T extends object>(
+  obj: T
+) => Array<keyof T>
