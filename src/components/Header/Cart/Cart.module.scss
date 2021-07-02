@@ -1,12 +1,69 @@
+@import '../../../assets/variables';
+
+@include keyframes(shake) {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-15deg);
+  }
+  60% {
+    transform: rotate(7deg);
+  }
+  80% {
+    transform: rotate(-7deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@include keyframes(appear) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .basket {
+  position: relative;
   height: 100%;
   background-color: #42537c;
   width: 250px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  background: url(../../../img/cart.png) 10% 50% no-repeat, #42537c;
   overflow: hidden;
+  &__label {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 6px;
+    left: 20px;
+    background: url(../../../img/cart.png) 10% 50% no-repeat, #42537c;
+    &_active {
+      @include animation('shake 0.6s ease-in-out');
+    }
+  }
+  &__count {
+    @include animation('appear 0.6s ease-in-out');
+    top: -3px;
+    left: -10px;
+    position: absolute;
+    text-align: center;
+    line-height: 25px;
+    font-size: 1rem;
+    height: 25px;
+    width: 25px;
+    background-color: #9a545b;
+    border-radius: 50%;
+    z-index: 10;
+  }
   &__description {
     padding: 0 20px;
     height: 100%;

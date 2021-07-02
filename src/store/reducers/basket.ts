@@ -65,6 +65,7 @@ const basketSlice = createSlice({
       state.orderedItems.forEach((item) => {
         if (item.id === action.payload.id) {
           state.amount -= item.totalPrice
+          state.totalCount -= item.count
         }
       })
       state.orderedItems = state.orderedItems.filter(
@@ -135,8 +136,6 @@ export const getOrderedItemsCount = (
 
   return count
 }
-
-export const getAmount = ({ basket }: RootState) => basket.amount
 
 export const actions = basketSlice.actions
 export default basketSlice.reducer

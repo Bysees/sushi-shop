@@ -3,7 +3,6 @@ import Rouble from '../common/Rouble'
 import styles from './Basket.module.scss'
 import BasketItems from './BasketItems/BasketItems'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
-import { getAmount } from '../../store/reducers/basket'
 
 interface IBasket {
   className?: string
@@ -26,7 +25,7 @@ const Basket: FC<IBasket> = ({ className }) => {
 
 //! Наверное потом вынести в отдельную папку, хотя...
 const BasketAmount = () => {
-  const amount = useTypedSelector(getAmount)
+  const amount = useTypedSelector(({ basket }) => basket.amount)
   return (
     <span className={styles.amount__sum}>
       {amount} <Rouble />
