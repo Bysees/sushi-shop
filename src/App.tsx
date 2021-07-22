@@ -27,13 +27,13 @@ const App = () => {
       <Route path='/basket'>
         <Basket className={styles.mainContainer} />
       </Route>
-      <Route exact path='/'>
+      {/* <Route exact path='/'>
         <div
           style={{ textAlign: 'center', fontSize: '3rem', marginTop: 50 }}
           className={styles.mainContainer}>
           Главная
         </div>
-      </Route>
+      </Route> */}
 
       {getProductItems(items).map((item) => {
         return (

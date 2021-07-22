@@ -6,7 +6,7 @@ import NavigationItem, {
 } from './NavigationItem/NavigationItem'
 
 const navLinks: INavigationItem[] = [
-  { path: '/', title: 'Главная' },
+  // { path: '/', title: 'Главная' },
   { path: '/sushi', title: 'Суши' },
   { path: '/rolls', title: 'Роллы' },
 ]
