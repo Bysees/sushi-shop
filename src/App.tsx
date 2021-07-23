@@ -1,6 +1,6 @@
 import { Header, ProductPage, Footer } from './components'
 import styles from './App.module.scss'
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import Basket from './components/Basket/Basket'
 import { useEffect } from 'react'
 import { useTypedSelector } from './hooks/useTypedSelector'
@@ -23,17 +23,14 @@ const App = () => {
 
   return (
     <div className={styles.wrapper}>
+      <Route exact path='/'>
+        <Redirect to='/sushi' />
+      </Route>
+
       <Header className={styles.headerContainer} />
       <Route path='/basket'>
         <Basket className={styles.mainContainer} />
       </Route>
-      {/* <Route exact path='/'>
-        <div
-          style={{ textAlign: 'center', fontSize: '3rem', marginTop: 50 }}
-          className={styles.mainContainer}>
-          Главная
-        </div>
-      </Route> */}
 
       {getProductItems(items).map((item) => {
         return (
@@ -62,21 +59,21 @@ function getProductItems(items: IDataItems<IDataItemWithKey>) {
   const productItems: IproductItem[] = []
   let title: string = ''
   let path: string = ''
-  let key: keyof IDataItems<IDataItemWithKey>
+  let item: keyof IDataItems<IDataItemWithKey>
 
-  for (key in items) {
-    if (key === 'sushi') {
+  for (item in items) {
+    if (item === 'sushi') {
       title = 'Суши всех видов'
       path = '/sushi'
     }
-    if (key === 'rolls') {
+    if (item === 'rolls') {
       title = 'Роллы с новым вкусом'
       path = '/rolls'
     }
     productItems.push({
       title,
       path,
-      items: items[key],
+      items: items[item],
     })
   }
 

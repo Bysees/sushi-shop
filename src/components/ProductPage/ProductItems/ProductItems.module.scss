@@ -1,3 +1,20 @@
+@import '../../../assets/variables';
+
+@include keyframes(appear) {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.wrapper {
+  @include animation('appear 0.5s alternate both');
+}
+
 .list {
   display: flex;
   flex-wrap: wrap;

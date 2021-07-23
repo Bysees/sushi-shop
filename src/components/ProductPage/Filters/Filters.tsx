@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import List from '../../common/List'
 import styles from './Filters.module.scss'
 import cn from 'classnames'
@@ -6,12 +6,30 @@ import cn from 'classnames'
 interface IFilters {
   className?: string
   getFiltredItems: (label: string) => void
+  filtredLabels: string[]
 }
 
-const labels = ['ВСЕ', 'ОСТРОЕ', 'НОВИНКА', 'ВЕГЕТАРИАНСКОЕ', 'ХИТ']
+// const labels = ['new', 'hit', 'hot', 'vegan'] //? from server
+// const labels = ['ВСЕ', 'ОСТРОЕ', 'НОВИНКА', 'ВЕГЕТАРИАНСКОЕ', 'ХИТ'] //? to UI
 
-const Filters: FC<IFilters> = ({ className, getFiltredItems }) => {
+function getLabels(filtredLabels: string[]): string[] {
+  const labels: string[] = ['ВСЕ']
+  filtredLabels.forEach((label) => {
+    if (label === 'new') labels.push('НОВИНКА')
+    if (label === 'hot') labels.push('ОСТРОЕ')
+    if (label === 'vegan') labels.push('ВЕГЕТАРИАНСКОЕ')
+    if (label === 'hit') labels.push('ХИТ')
+  })
+  return labels
+}
+
+const Filters: FC<IFilters> = ({
+  className,
+  getFiltredItems,
+  filtredLabels,
+}) => {
   const [activeBtn, setActiveBtn] = useState<string | null>(null)
+  const labels = getLabels(filtredLabels)
 
   const onFilterHandler = (label: string) => {
     getFiltredItems(label)
@@ -27,7 +45,8 @@ const Filters: FC<IFilters> = ({ className, getFiltredItems }) => {
           <li key={label} className={styles.list__item + ' ' + styles.filter}>
             <button
               onClick={() => onFilterHandler(label)}
-              className={styles.filter__btn}>
+              className={styles.filter__btn}
+              disabled={label === activeBtn}>
               <span
                 className={cn(
                   styles.filter__label,
@@ -52,4 +71,4 @@ const Filters: FC<IFilters> = ({ className, getFiltredItems }) => {
   )
 }
 
-export default Filters
+export default memo(Filters)

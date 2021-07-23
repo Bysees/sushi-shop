@@ -25,8 +25,8 @@ const ProductItems: FC<IProductItems> = ({
 }) => {
   //? keyInfo нужен для того, чтобы обозначить компонент, который мы сейчас 'просматриваем' в ProductItemInfo.
   const keyInfo = 'key_info'
+  const [cloneItems, setCloneItems] = useState<IDataItemWithKey[]>(items)
 
-  const [cloneItems, setCloneItems] = useState<IDataItemWithKey[]>([])
   useEffect(() => {
     setCloneItems(cloneDeep(items))
   }, [items])
@@ -34,7 +34,7 @@ const ProductItems: FC<IProductItems> = ({
   const isShowInfoItem = (id: string) => {
     cloneItems.forEach((item, index) => {
       if (item.key === keyInfo) {
-        removeInfo(index)
+        removeInfo()
       }
     })
     if (isViewingInfo !== id) {
@@ -57,13 +57,13 @@ const ProductItems: FC<IProductItems> = ({
     })
   }
 
-  function removeInfo(itemInfoIndex: number) {
+  function removeInfo() {
     setIsViewingInfo(null)
     setCloneItems(cloneDeep(items))
   }
 
   return (
-    <div className={className}>
+    <div className={className + ' ' + styles.wrapper}>
       <List
         className={styles.list}
         items={cloneItems}
@@ -86,11 +86,10 @@ const ProductItems: FC<IProductItems> = ({
           }
           return (
             <ProductItemInfo
-              setIsFiltred={setIsFiltred}
-              isFiltred={isFiltred}
               key={item.key}
               className={styles.list__item_info}
-              itemIndex={index}
+              setIsFiltred={setIsFiltred}
+              isFiltred={isFiltred}
               removeInfo={removeInfo}
               img={item.img}
               structure={item.structure}

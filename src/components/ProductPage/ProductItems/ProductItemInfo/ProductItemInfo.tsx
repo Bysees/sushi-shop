@@ -14,8 +14,7 @@ import { addItem } from '../../../../store/actions/basket'
 
 interface IProductItemInfo extends IDataItemWithKey {
   className?: string
-  removeInfo: (index: number) => void
-  itemIndex: number
+  removeInfo: () => void
   isFiltred: boolean
   setIsFiltred: (value: boolean) => void
 }
@@ -28,7 +27,6 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
   labels,
   className,
   removeInfo,
-  itemIndex,
   isFiltred,
   setIsFiltred,
   id,
@@ -40,24 +38,22 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
   )
 
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
-  const onTransitionHandler = () => removeInfo(itemIndex)
+  const onTransitionHandler = () => removeInfo()
 
   useEffect(() => {
     if (itemInfoRef.current) {
       const itemOffset = itemInfoRef.current.offsetTop
-      const itemHeightHalf = itemInfoRef.current.offsetHeight / 2
+      const itemHeight = itemInfoRef.current.offsetHeight
       const windowHeightHalf = document.documentElement.clientHeight / 2
-      const scrollTo = itemOffset - windowHeightHalf + itemHeightHalf
+      const scrollTo = itemOffset - windowHeightHalf + itemHeight
       window.scrollTo(0, scrollTo)
     }
   })
 
   useEffect(() => {
-    return () => {
-      if (isFiltred) {
-        window.scrollTo(0, 0)
-        setIsFiltred(false)
-      }
+    if (isFiltred) {
+      window.scrollTo(0, 0)
+      setIsFiltred(false)
     }
   }, [isFiltred, setIsFiltred])
 

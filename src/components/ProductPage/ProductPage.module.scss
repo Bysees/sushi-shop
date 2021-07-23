@@ -1,6 +1,18 @@
 @import './../../assets/variables';
 
+//! При первой прогрузки сайта и первом переходе по вкладкам прыгает футер, т.к. картинки не успевают прогрузиться,
+//! пока такой вариант зафикисть это.
+@include keyframes(hideFooter) {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: auto;
+  }
+}
+
 .product {
+  @include animation('hideFooter 0.5s alternate both');
   &__title {
     margin-top: 30px;
     font-size: 3rem;
