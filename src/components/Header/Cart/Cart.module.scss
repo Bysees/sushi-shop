@@ -30,7 +30,12 @@
   }
 }
 
-.basket {
+.wrapper {
+  cursor: default;
+  pointer-events: none;
+}
+
+.cart {
   position: relative;
   height: 100%;
   background-color: #42537c;
@@ -39,13 +44,17 @@
   align-items: center;
   justify-content: flex-end;
   overflow: hidden;
+  transition: 0.3s ease-out;
+  &:hover {
+    box-shadow: inset 0px 0px 10px 3px rgb(0 0 0 / 50%);
+  }
   &__label {
     position: absolute;
     height: 50px;
     width: 50px;
     top: 6px;
     left: 20px;
-    background: url(../../../img/cart.png) 10% 50% no-repeat, #42537c;
+    background: url(../../../img/cart.png) 10% 50% no-repeat;
     &_active {
       @include animation('shake 0.6s ease-in-out');
     }
@@ -66,7 +75,6 @@
   }
   &__description {
     padding: 0 20px;
-    height: 100%;
   }
   &__title {
     margin-top: 3.4rem;
