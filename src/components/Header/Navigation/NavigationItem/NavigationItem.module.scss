@@ -1,0 +1,30 @@
+@import '../../../../assets/variables';
+
+@include keyframes(line_appear) {
+  0% {
+    width: 0%;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.item {
+  &__link {
+    &_active {
+      position: relative;
+      &::before {
+        position: absolute;
+        content: '';
+        bottom: -2px;
+        left: 0%;
+        height: 1.5px;
+        width: 0%;
+        background-color: #fff;
+        @include animation('line_appear 0.5s alternate both');
+      }
+    }
+  }
+}
