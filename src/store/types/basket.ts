@@ -24,4 +24,5 @@ export type orderedItemType = {
   price: number
   totalPrice: number
   count: number
+  id: string
 }

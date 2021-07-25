@@ -1,28 +1,37 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 import styles from './BasketItem.module.scss'
 import Rouble from '../../../common/Rouble'
-import { getOrderedItemData } from '../../../../store/reducers/basket'
-import { useTypedSelector } from '../../../../hooks/useTypedSelector'
-import { shallowEqual } from 'react-redux'
 import {
   addItem,
   removeItem,
   subtractItem,
 } from '../../../../store/actions/basket'
+import { motion } from 'framer-motion'
 
 export interface IBasketItem {
   className?: string
   id: string
+  img: string
+  title: string
+  price: number
+  count: number
+  totalPrice: number
 }
 
-const BasketItem: FC<IBasketItem> = React.memo(({ className, id }) => {
-  const { img, title, price, totalPrice, count } = useTypedSelector(
-    (state) => getOrderedItemData(state, id),
-    shallowEqual
-  )
-
+const BasketItem: FC<IBasketItem> = ({
+  className,
+  id,
+  img,
+  title,
+  price,
+  totalPrice,
+  count,
+}) => {
   return (
-    <div className={className + ' ' + styles.item}>
+    <motion.li
+      exit={{ x: [0, 50, -500], opacity: 0 }}
+      transition={{ duration: 0.4, times: [0, 0.2, 1] }}
+      className={className + ' ' + styles.item}>
       <div className={styles['item__column-left']}>
         <div className={styles.item__img}>
           <img src={img} alt='sushi' />
@@ -58,8 +67,8 @@ const BasketItem: FC<IBasketItem> = React.memo(({ className, id }) => {
           onClick={() => removeItem(id)}
           className={styles.item__remove}></button>
       </div>
-    </div>
+    </motion.li>
   )
-})
+}
 
-export default BasketItem
+export default memo(BasketItem)

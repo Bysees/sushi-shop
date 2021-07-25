@@ -77,15 +77,12 @@ const basketSlice = createSlice({
 
 //? selectors
 
-export const getOrderedItemsId = ({ basket }: RootState): string[] => {
-  return basket.orderedItems.map((item) => item.id)
-}
-
-export const getOrderedItemData = (
-  { basket: { orderedItems }, items }: RootState,
-  id: string
-): orderedItemType => {
-  const orderedItem = {} as orderedItemType
+export const getOrderedItems = ({
+  basket: { orderedItems },
+  items,
+}: RootState): orderedItemType[] => {
+  //! Возможно сделать 2 вложенных цикла гораздо лучше чем все эти копии, сортировки и сомнительный while, но пока оставлю так.
+  const resultItems = [] as orderedItemType[]
 
   const itemsCopy: IDataItemWithKey[] = Object.values(items).flat().concat()
   const orderedItemsCopy = orderedItems.concat()
@@ -100,27 +97,24 @@ export const getOrderedItemData = (
   let i = 0
   let o = 0
   while (itemsCopy.length > i && orderedItemsCopy.length > o) {
-    if (itemsCopy[i].id !== id && orderedItemsCopy[o].id !== id) {
-      o++
+    if (itemsCopy[i].id !== orderedItemsCopy[o].id) {
       i++
     }
-    if (itemsCopy[i].id === id && orderedItemsCopy[o].id !== id) {
+    if (itemsCopy[i].id === orderedItemsCopy[o].id) {
+      resultItems.push({
+        'totalPrice': orderedItemsCopy[o].totalPrice,
+        'count': orderedItemsCopy[o].count,
+        'price': itemsCopy[i].price,
+        'img': itemsCopy[i].img,
+        'title': itemsCopy[i].title,
+        'id': itemsCopy[i].id,
+      })
+      i = 0
       o++
-    }
-    if (itemsCopy[i].id !== id && orderedItemsCopy[o].id === id) {
-      i++
-    }
-    if (itemsCopy[i].id === id && orderedItemsCopy[o].id === id) {
-      orderedItem.totalPrice = orderedItemsCopy[o].totalPrice
-      orderedItem.count = orderedItemsCopy[o].count
-      orderedItem.price = itemsCopy[i].price
-      orderedItem.img = itemsCopy[i].img
-      orderedItem.title = itemsCopy[i].title
-      break
     }
   }
 
-  return orderedItem
+  return resultItems
 }
 
 export const getOrderedItemsCount = (
