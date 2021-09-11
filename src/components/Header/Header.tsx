@@ -12,7 +12,7 @@ const Header: FC<IHeader> = ({ className }) => {
     <header className={className + ' ' + styles.header}>
       <div className={styles.header__wrapper}>
         <Navigation className={styles.header__navigation} />
-        <Cart />
+        <Cart className={styles.header__cart} />
       </div>
     </header>
   )

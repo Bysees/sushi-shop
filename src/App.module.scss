@@ -1,5 +1,17 @@
 @import './assets/variables';
 
+// xs: 0,
+// sm: 480px,
+// md: 768px,
+// lg: 1024px
+
+@media screen and (max-width: 1024px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
+
 body {
   overflow-y: scroll;
 }
