@@ -1,0 +1,91 @@
+.amount {
+  height: 36px;
+  white-space: nowrap;
+  &__count {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    min-width: 40px;
+    padding: 0 5px 0 7px;
+    line-height: 36px;
+    font-size: 2.2rem;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+    background-color: #2c3a5c;
+    &_num {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  &__countBtns {
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+    width: 20px;
+    background-color: #1a2746;
+    font-size: 0;
+  }
+  &__add,
+  &__subtract {
+    font-size: 1.3rem;
+    line-height: 1.3rem;
+    color: #fff;
+    height: 50%;
+    width: 100%;
+    background-color: transparent;
+    &:hover {
+      font-weight: 700;
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.amountGadgetSize {
+  white-space: nowrap;
+  font-size: 2.6rem;
+  @media screen and (max-width: 767px) {
+    font-size: 1.8rem;
+  }
+  @media screen and (max-width: 480px) {
+    font-size: 2.2rem;
+  }
+  &__count {
+    width: 40px;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-block;
+    @media screen and (max-width: 767px) {
+      width: 30px;
+      line-height: 2rem;
+    }
+  }
+  &__add,
+  &__subtract {
+    vertical-align: middle;
+    background-color: transparent;
+    height: 35px;
+    width: 35px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    font-size: 2rem;
+    line-height: 1px;
+    @media screen and (max-width: 767px) {
+      border-width: 1px;
+      font-size: 1.6rem;
+      height: 22px;
+      width: 22px;
+    }
+    @media screen and (max-width: 480px) {
+      border-width: 1.5px;
+      font-size: 2rem;
+      height: 28px;
+      width: 28px;
+    }
+  }
+}
