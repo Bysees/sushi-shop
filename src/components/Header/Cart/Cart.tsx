@@ -20,7 +20,7 @@ const Cart: FC<ICart> = ({ className }) => {
   })
 
   const count = totalCount < 100 ? totalCount : '99+'
-  const minWidth480 = useMediaQuery('(min-width:480px)')
+  const minWidth480 = useMediaQuery('(min-width:481px)')
 
   return (
     <NavLink to='/basket' className={cn(!count && styles.wrapper)}>
