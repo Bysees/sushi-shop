@@ -10,6 +10,15 @@ interface IProductPage {
   className?: string
 }
 
+export enum labelNames {
+  all = 'ВСЕ',
+  new = 'НОВИНКА',
+  hot = 'ОСТРОЕ',
+  hit = 'ХИТ',
+  veganLong = 'ВЕГЕТАРИАНСКОЕ',
+  veganSmall = 'ВЕГАН',
+}
+
 const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   const [currentItems, setCurrentItems] = useState<IDataItemWithKey[]>(items)
 
@@ -32,14 +41,16 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
     (label: string) => {
       setIsViewingInfo(null)
       setIsFiltred(true)
-      if (label === 'ВСЕ') {
+      if (label === labelNames.all) {
         setCurrentItems(items)
         return
       }
-      if (label === 'ОСТРОЕ') label = 'hot'
-      if (label === 'НОВИНКА') label = 'new'
-      if (label === 'ХИТ') label = 'hit'
-      if (label === 'ВЕГЕТАРИАНСКОЕ') label = 'vegan'
+      if (label === labelNames.hot) label = 'hot'
+      if (label === labelNames.new) label = 'new'
+      if (label === labelNames.hit) label = 'hit'
+      if (label === labelNames.veganLong || label === labelNames.veganSmall) {
+        label = 'vegan'
+      }
 
       const filtredItems = items.filter((item) => item.labels.includes(label))
       setCurrentItems(filtredItems)

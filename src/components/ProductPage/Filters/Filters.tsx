@@ -4,6 +4,7 @@ import styles from './Filters.module.scss'
 import cn from 'classnames'
 import { useWrapObserv } from '../../../hooks/useWrapObserv'
 import { useRefObject } from '../../../hooks/useRefObject'
+import { labelNames } from '../ProductPage'
 
 interface IFilters {
   className?: string
@@ -17,10 +18,12 @@ interface IFilters {
 function getLabels(filtredLabels: string[], isLowSize: boolean): string[] {
   const labels: string[] = ['ВСЕ']
   filtredLabels.forEach((label) => {
-    if (label === 'new') labels.push('НОВИНКА')
-    if (label === 'hot') labels.push('ОСТРОЕ')
-    if (label === 'vegan') labels.push(isLowSize ? 'ВЕГАН' : 'ВЕГЕТАРИАНСКОЕ')
-    if (label === 'hit') labels.push('ХИТ')
+    if (label === 'new') labels.push(labelNames.new)
+    if (label === 'hot') labels.push(labelNames.hot)
+    if (label === 'hit') labels.push(labelNames.hit)
+    if (label === 'vegan') {
+      labels.push(isLowSize ? labelNames.veganSmall : labelNames.veganLong)
+    }
   })
   return labels
 }
@@ -65,11 +68,13 @@ const Filters: FC<IFilters> = ({
                 className={cn(
                   styles.filter__label,
                   isDescripWrapped && styles.filter__label_wrap,
-                  label === 'ВСЕ' && styles.filter__label_all,
-                  label === 'ОСТРОЕ' && styles.filter__label_hot,
-                  label === 'НОВИНКА' && styles.filter__label_new,
-                  label === 'ХИТ' && styles.filter__label_hit,
-                  label === 'ВЕГЕТАРИАНСКОЕ' && styles.filter__label_vegan
+                  label === labelNames.all && styles.filter__label_all,
+                  label === labelNames.hot && styles.filter__label_hot,
+                  label === labelNames.new && styles.filter__label_new,
+                  label === labelNames.hit && styles.filter__label_hit,
+                  (label === labelNames.veganLong ||
+                    label === labelNames.veganSmall) &&
+                    styles.filter__label_vegan
                 )}></span>
               <span
                 className={cn(
