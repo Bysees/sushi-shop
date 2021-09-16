@@ -51,6 +51,21 @@
         left: 0;
         top: -10%;
         background: url(../../../img/added.png) center / 25% no-repeat;
+        @media screen and (max-width: 480px) {
+          top: -12%;
+          background-size: 60px;
+        }
+      }
+      &-big {
+        &::before {
+          @media screen and (max-width: 768px) {
+            background-size: 120px;
+          }
+          @media screen and (max-width: 480px) {
+            top: -12%;
+            background-size: 70px;
+          }
+        }
       }
     }
     &-title {
@@ -59,7 +74,7 @@
       font-size: 2rem;
       text-align: center;
       position: absolute;
-      bottom: 30%;
+      bottom: 25%;
       &_big {
         font-size: 3rem;
       }

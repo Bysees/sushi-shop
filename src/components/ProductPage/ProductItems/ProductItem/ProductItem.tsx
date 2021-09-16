@@ -29,7 +29,7 @@ const ProductItem: FC<IProductItem> = ({
   )
 
   //! Возможно потом надо будет сделать addEventListener на родителе, потому что
-  //! Во первых так мы передаём в каждую компоненту отдельную функцию.
+  //! Во первых так мы передаём в каждый компонент отдельную функцию.
   //! Во вторых stopPropagation может мешать, если мы будем собирать статистику.
   const addOrderItemCount = (e: MouseEvent) => {
     e.stopPropagation()

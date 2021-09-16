@@ -21,8 +21,9 @@
     background-color: rgb(255, 255, 255);
   }
   &__img {
-    //! Добавил что б не удалять свойсво, мб потом удалить
-    flex-shrink: 1;
+    @media screen and (max-width: 480px) {
+      height: 150px;
+    }
   }
 
   &__title {

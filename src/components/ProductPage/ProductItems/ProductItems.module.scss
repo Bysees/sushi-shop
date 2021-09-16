@@ -6,9 +6,20 @@
   &__item {
     flex: 0 0 31.3333%;
     margin: 1%;
+    @media screen and (max-width: 768px) {
+      flex: 0 0 48%;
+    }
+    @media screen and (max-width: 480px) {
+      margin: 5%;
+      flex: 0 0 90%;
+    }
     &_info {
       flex: 0 0 98%;
       margin: 1%;
+      @media screen and (max-width: 480px) {
+        margin: 5%;
+        flex: 0 0 90%;
+      }
     }
   }
 }

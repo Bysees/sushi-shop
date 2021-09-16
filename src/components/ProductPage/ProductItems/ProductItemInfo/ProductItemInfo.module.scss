@@ -13,6 +13,9 @@
   //! Потом поменять margin's у итемов наверное, а может и не надо
   display: flex;
   position: relative;
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
   @include animation('appear 0.3s ease alternate');
   &_unmount {
     transition: 0.3s;
@@ -22,6 +25,11 @@
     flex-shrink: 0;
     width: 60%;
     min-height: 390px;
+    @media screen and (max-width: 768px) {
+      min-height: 100px;
+      max-height: 290px;
+      width: 100%;
+    }
     & img {
       height: 100%;
       width: 100%;
@@ -78,10 +86,17 @@
   &__title {
     font-size: 2rem;
     margin-right: 50px;
+    @media screen and (max-width: 480px) {
+      font-size: 1.5rem;
+      margin-right: 15px;
+    }
   }
 
   &__ingredients {
     margin-top: 40px;
+    @media screen and (max-width: 480px) {
+      margin-top: 20px;
+    }
   }
   &__structures {
     margin-top: 40px;
@@ -91,6 +106,10 @@
     font-size: 4rem;
     position: absolute;
     bottom: 30px;
+    @media screen and (max-width: 1024px) {
+      font-size: 3rem;
+      bottom: 34px;
+    }
   }
   &__btnOrder {
     position: absolute;
