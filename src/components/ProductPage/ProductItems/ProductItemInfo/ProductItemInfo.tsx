@@ -41,14 +41,18 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
   const onTransitionHandler = () => removeInfo()
 
   useEffect(() => {
+    //! Центрирует по середине экрана появившийся данный компонент.
+    //? Потом мб переписать в декларативную функцию
     if (itemInfoRef.current) {
       const itemOffset = itemInfoRef.current.offsetTop
-      const itemHeight = itemInfoRef.current.offsetHeight
+      const itemHalfHeight = itemInfoRef.current.offsetHeight / 2
       const windowHeightHalf = document.documentElement.clientHeight / 2
-      const scrollTo = itemOffset - windowHeightHalf + itemHeight
+      const headerHeight = 60
+      const scrollTo =
+        itemOffset + itemHalfHeight - windowHeightHalf + headerHeight
       window.scrollTo(0, scrollTo)
     }
-  })
+  }, [])
 
   useEffect(() => {
     if (isFiltred) {
