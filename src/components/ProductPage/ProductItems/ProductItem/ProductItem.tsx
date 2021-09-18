@@ -7,6 +7,8 @@ import { IDataItemWithKey } from '../../../../store/types/productItems'
 import { useTypedSelector } from '../../../../hooks/useTypedSelector'
 import { getOrderedItemsCount } from '../../../../store/reducers/basket'
 import { addItem } from '../../../../store/actions/basket'
+import { useMediaQuery } from '@material-ui/core'
+import IngredientsItemsInfo from '../ProductItemInfo/IngredientsItemsInfo/IngredientsItemsInfo'
 
 export interface IProductItem extends IDataItemWithKey {
   className?: string
@@ -23,10 +25,12 @@ const ProductItem: FC<IProductItem> = ({
   id,
   getInfoItemId,
   isViewingInfo,
+  structure,
 }) => {
   const orderedItemCount = useTypedSelector((state) =>
     getOrderedItemsCount(state, id)
   )
+  const width1024 = useMediaQuery('(max-width: 1024px)')
 
   //! Возможно потом надо будет сделать addEventListener на родителе, потому что
   //! Во первых так мы передаём в каждый компонент отдельную функцию.
@@ -41,13 +45,7 @@ const ProductItem: FC<IProductItem> = ({
   const itemLabels = labels.map((label) => (
     <span
       key={label}
-      className={cn(
-        styles.item__label,
-        label === 'vegan' && styles.item__label_vegan,
-        label === 'hot' && styles.item__label_hot,
-        label === 'hit' && styles.item__label_hit,
-        label === 'new' && styles.item__label_new
-      )}></span>
+      className={cn(styles.item__label, styles[`item__label_${label}`])}></span>
   ))
 
   return (
@@ -63,9 +61,17 @@ const ProductItem: FC<IProductItem> = ({
         img={img}
         orderedItemCount={orderedItemCount}
       />
-      <div className={styles.item__title}>
-        {itemLabels}
-        {title}
+      <div className={styles.item__description}>
+        <div className={styles.item__title}>
+          {itemLabels}
+          {title}
+        </div>
+        {width1024 && (
+          <IngredientsItemsInfo
+            className={styles.item__ingredients}
+            ingredients={structure.ingredients}
+          />
+        )}
       </div>
       <OrderItem
         orderClickHandler={addOrderItemCount}
