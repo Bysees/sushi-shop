@@ -2,21 +2,12 @@ import styles from './ProductPage.module.scss'
 import Filters from './Filters/Filters'
 import { FC, useCallback, useMemo, useState } from 'react'
 import ProductItems from './ProductItems/ProductItems'
-import { IDataItemWithKey } from '../../store/types/productItems'
+import { IDataItemWithKey, labelsType } from '../../store/types/productItems'
 
 interface IProductPage {
   items: IDataItemWithKey[]
   title: string
   className?: string
-}
-
-export enum labelNames {
-  all = 'ВСЕ',
-  new = 'НОВИНКА',
-  hot = 'ОСТРОЕ',
-  hit = 'ХИТ',
-  veganLong = 'ВЕГЕТАРИАНСКОЕ',
-  veganSmall = 'ВЕГАН',
 }
 
 const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
@@ -25,35 +16,28 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   //? Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
   const [isViewingInfo, setIsViewingInfo] = useState<string | null>(null)
 
-  //? Если переключаю фильтр (перехожу на другую позицию например 'ХИТ') и в этот момент у меня открыт ProfileItemInfo, то тогда если isFiltred true, смещаю скролл в начало страницы. Если этого не сделать, то тогда при переходах у меня будет некорректно выстраиваться позиция скролла.
+  //? Если переключаю фильтр (перехожу на другую позицию например 'ХИТ') и в этот момент у меня открыт ProfileItemInfo, то тогда если isFiltred = true, смещаю скролл в начало страницы. Если этого не сделать, то при переходах у меня будет некорректно выстраиваться позиция скролла.
   const [isFiltred, setIsFiltred] = useState<boolean>(false)
 
   //! Беру лейблы всех итемов             | items.map((item) => item.labels)
   //! Собираю их в один массив            | .flat()
   //! Оставляю только уникальные значения | new Set()
   //! Превращаю Set коллекцию в массив    | Array.from()
-  const labels = useMemo(
+  const labels: labelsType[] = useMemo(
     () => Array.from(new Set(items.map((item) => item.labels).flat())),
     [items]
   )
 
-  const getFiltredItems = useCallback(
-    (label: string) => {
+  const getFiltredItemsByLabel = useCallback(
+    (label) => {
       setIsViewingInfo(null)
       setIsFiltred(true)
-      if (label === labelNames.all) {
+      if (label === 'all') {
         setCurrentItems(items)
-        return
+      } else {
+        const filtredItems = items.filter((item) => item.labels.includes(label))
+        setCurrentItems(filtredItems)
       }
-      if (label === labelNames.hot) label = 'hot'
-      if (label === labelNames.new) label = 'new'
-      if (label === labelNames.hit) label = 'hit'
-      if (label === labelNames.veganLong || label === labelNames.veganSmall) {
-        label = 'vegan'
-      }
-
-      const filtredItems = items.filter((item) => item.labels.includes(label))
-      setCurrentItems(filtredItems)
     },
     [items]
   )
@@ -63,7 +47,7 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
       <h1 className={styles.product__title}>{title}</h1>
       <Filters
         filtredLabels={labels}
-        getFiltredItems={getFiltredItems}
+        getFiltredItems={getFiltredItemsByLabel}
         className={styles.product__filters}
       />
       <ProductItems

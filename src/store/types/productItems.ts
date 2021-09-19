@@ -1,6 +1,8 @@
 //! Массив просто чтобы где-то были прописаны названия
 // const labels = ['new', 'hit', 'hot', 'vegan']
 
+export type labelsType = 'new' | 'hot' | 'hit' | 'vegan'
+
 export interface IDataItemStructure {
   weight: number
   protein: number
@@ -15,7 +17,7 @@ export interface IDataItem {
   title: string
   price: number
   img: string
-  labels: string[]
+  labels: labelsType[]
   structure: IDataItemStructure
 }
 
