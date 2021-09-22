@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styles from './StructureItemsInfo.module.scss'
 import StructureItemInfo from './StructureItemInfo/StructureItemInfo'
-import { IDataItemStructure } from '../../../../../store/types/productItems'
+import { IDataItemStructure } from '../../../../store/types/productItems'
 
 interface IItemStructureInfo {
   structure: IDataItemStructure

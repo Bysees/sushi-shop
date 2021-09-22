@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import styles from './LabelsItemInfo.module.scss'
 import cn from 'classnames'
-import { labelsType } from '../../../../../store/types/productItems'
+import { labelsType } from '../../../../store/types/productItems'
 
 interface ILabelsItemInfo {
   labels: labelsType[]
