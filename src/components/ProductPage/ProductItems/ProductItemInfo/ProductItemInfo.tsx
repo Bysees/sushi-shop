@@ -1,16 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import styles from './ProductItemInfo.module.scss'
-import LabelsItemInfo from './LabelsItemInfo/LabelsItemInfo'
-import StructureItemsInfo from './StructureItemsInfo/StructureItemsInfo'
-import IngredientsItemsInfo from './IngredientsItemsInfo/IngredientsItemsInfo'
 import cn from 'classnames'
-import Rouble from '../../../common/Rouble'
-import ButtonOrder from '../../../common/ButtonOrder'
 import { IDataItemWithKey } from '../../../../store/types/productItems'
-import ImgItem from '../../../common/ImgItem/ImgItem'
-import { useTypedSelector } from '../../../../hooks/useTypedSelector'
-import { getOrderedItemsCount } from '../../../../store/reducers/basket'
-import { addItem } from '../../../../store/actions/basket'
+import ItemInfo from '../../../common/ItemInfo/ItemInfo'
 
 interface IProductItemInfo extends IDataItemWithKey {
   className?: string
@@ -33,12 +25,16 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
 }) => {
   const itemInfoRef = useRef<HTMLLIElement | null>(null)
 
-  const orderedItemCount = useTypedSelector((state) =>
-    getOrderedItemsCount(state, id)
-  )
-
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
-  const onTransitionHandler = () => removeInfo()
+  const onUnmountAnimation = () => setIsUnmounting(true)
+
+  //! В некоторых случаях срабатывают оба useEffecta и важно чтобы этот отработал первый...
+  useEffect(() => {
+    if (isFiltred) {
+      window.scrollTo(0, 0)
+      setIsFiltred(false)
+    }
+  }, [isFiltred, setIsFiltred])
 
   useEffect(() => {
     //! Центрирует по середине экрана появившийся данный компонент.
@@ -52,57 +48,28 @@ const ProductItemInfo: FC<IProductItemInfo> = ({
         itemOffset + itemHalfHeight - windowHeightHalf + headerHeight
       window.scrollTo(0, scrollTo)
     }
-  }, [])
-
-  useEffect(() => {
-    if (isFiltred) {
-      window.scrollTo(0, 0)
-      setIsFiltred(false)
-    }
-  }, [isFiltred, setIsFiltred])
+    //! id в зависимости нужно для того, что если при открытом компоненте мы октрываем инфо другого компонента, то этот компонент как-бы не умирает, а лишь получает новые данные, и из-за этого useEffect не отрабатывает и мы получаем некорректное положение.
+  }, [id])
 
   return (
     <li
       ref={itemInfoRef}
-      onTransitionEnd={onTransitionHandler}
+      onTransitionEnd={removeInfo}
       className={cn(
         className,
-        styles.item,
+        styles.item_mount,
         isUnmounting && styles.item_unmount
       )}>
-      <ImgItem
-        info
-        className={styles.item__img}
-        img={img}
-        orderedItemCount={orderedItemCount}
-      />
-      <div className={styles.item__description}>
-        <div
-          onTransitionEnd={(e) => e.stopPropagation()}
-          className={styles.item__btnRemove}>
-          <button onClick={() => setIsUnmounting(true)}></button>
-        </div>
-        {!!labels.length && (
-          <LabelsItemInfo className={styles.item__labels} labels={labels} />
-        )}
-        <div className={styles.item__title}>{title}</div>
-        <IngredientsItemsInfo
-          className={styles.item__ingredients}
-          ingredients={structure.ingredients}
-        />
-        <StructureItemsInfo
-          className={styles.item__structures}
+      <div onTransitionEnd={(e) => e.stopPropagation()}>
+        <ItemInfo
+          id={id}
+          title={title}
           structure={structure}
+          labels={labels}
+          img={img}
+          price={price}
+          removeItem={onUnmountAnimation}
         />
-        <div className={styles.item__price}>
-          {price} <Rouble />
-        </div>
-        <div
-          onClick={() => addItem(id, price)}
-          onTransitionEnd={(e) => e.stopPropagation()}
-          className={styles.item__btnOrder}>
-          <ButtonOrder children={'Заказать'} big />
-        </div>
       </div>
     </li>
   )
