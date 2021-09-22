@@ -3,6 +3,10 @@ import Filters from './Filters/Filters'
 import { FC, useCallback, useMemo, useState } from 'react'
 import ProductItems from './ProductItems/ProductItems'
 import { IDataItemWithKey, labelsType } from '../../store/types/productItems'
+import { Route, useRouteMatch, Switch } from 'react-router'
+import ProductPageItemInfo from './ProductPageItemInfo/ProductPageItemInfo'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { setInfoItemId } from '../../store/actions/productItems'
 
 interface IProductPage {
   items: IDataItemWithKey[]
@@ -13,8 +17,10 @@ interface IProductPage {
 const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   const [currentItems, setCurrentItems] = useState<IDataItemWithKey[]>(items)
 
+  const { path } = useRouteMatch()
+
   //? Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
-  const [isViewingInfo, setIsViewingInfo] = useState<string | null>(null)
+  const infoItemId = useTypedSelector((state) => state.product.infoItemId)
 
   //? Если переключаю фильтр (перехожу на другую позицию например 'ХИТ') и в этот момент у меня открыт ProfileItemInfo, то тогда если isFiltred = true, смещаю скролл в начало страницы. Если этого не сделать, то при переходах у меня будет некорректно выстраиваться позиция скролла.
   const [isFiltred, setIsFiltred] = useState<boolean>(false)
@@ -30,7 +36,7 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
 
   const getFiltredItemsByLabel = useCallback(
     (label) => {
-      setIsViewingInfo(null)
+      setInfoItemId(null)
       setIsFiltred(true)
       if (label === 'all') {
         setCurrentItems(items)
@@ -43,21 +49,30 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   )
 
   return (
+    //! ВАЖНО
+    //? Сделать так, что-бы этот компонент роутился бы либо в App, вместо ProductPage, либо в productPage поменять стили так, чтобы при переходах у меня бы применялась анимация появления
     <main className={className + ' ' + styles.product}>
-      <h1 className={styles.product__title}>{title}</h1>
-      <Filters
-        filtredLabels={labels}
-        getFiltredItems={getFiltredItemsByLabel}
-        className={styles.product__filters}
-      />
-      <ProductItems
-        setIsFiltred={setIsFiltred}
-        isFiltred={isFiltred}
-        isViewingInfo={isViewingInfo}
-        setIsViewingInfo={setIsViewingInfo}
-        items={currentItems}
-        className={styles.product__items}
-      />
+      <Switch>
+        <Route exact path={path}>
+          <h1 className={styles.product__title}>{title}</h1>
+          <Filters
+            filtredLabels={labels}
+            getFiltredItems={getFiltredItemsByLabel}
+            className={styles.product__filters}
+          />
+          <ProductItems
+            setIsFiltred={setIsFiltred}
+            isFiltred={isFiltred}
+            infoItemId={infoItemId}
+            setInfoItemId={setInfoItemId}
+            items={currentItems}
+            className={styles.product__items}
+          />
+        </Route>
+        <Route path={`${path}/:name`}>
+          <ProductPageItemInfo items={currentItems} />
+        </Route>
+      </Switch>
     </main>
   )
 }

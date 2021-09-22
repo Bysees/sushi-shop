@@ -9,8 +9,8 @@ import { IDataItemWithKey } from '../../../store/types/productItems'
 interface IProductItems {
   items: IDataItemWithKey[]
   className?: string
-  isViewingInfo: string | null
-  setIsViewingInfo: (id: string | null) => void
+  infoItemId: string | null
+  setInfoItemId: (id: string | null) => void
   isFiltred: boolean
   setIsFiltred: (isFiltred: boolean) => void
 }
@@ -18,8 +18,8 @@ interface IProductItems {
 const ProductItems: FC<IProductItems> = ({
   items,
   className,
-  isViewingInfo,
-  setIsViewingInfo,
+  infoItemId,
+  setInfoItemId,
   isFiltred,
   setIsFiltred,
 }) => {
@@ -31,19 +31,19 @@ const ProductItems: FC<IProductItems> = ({
     setCloneItems(cloneDeep(items))
   }, [items])
 
-  const isShowInfoItem = (id: string) => {
+  function toggleInfoItem(id: string) {
     cloneItems.forEach((item, index) => {
       if (item.key === keyInfo) {
         removeInfo()
       }
     })
-    if (isViewingInfo !== id) {
+    if (infoItemId !== id) {
       showInfo(id)
     }
   }
 
   function showInfo(id: string) {
-    setIsViewingInfo(id)
+    setInfoItemId(id)
     setCloneItems((cloneItems) => {
       const copyItems = [...cloneItems]
       cloneItems.forEach((item, index) => {
@@ -58,7 +58,7 @@ const ProductItems: FC<IProductItems> = ({
   }
 
   function removeInfo() {
-    setIsViewingInfo(null)
+    setInfoItemId(null)
     setCloneItems(cloneDeep(items))
   }
 
@@ -73,9 +73,9 @@ const ProductItems: FC<IProductItems> = ({
               <ProductItem
                 key={item.key}
                 className={styles.list__item}
-                isViewingInfo={isViewingInfo}
+                infoItemId={infoItemId}
                 structure={item.structure}
-                getInfoItemId={isShowInfoItem}
+                toggleInfoItem={toggleInfoItem}
                 id={item.id}
                 labels={item.labels}
                 img={item.img}

@@ -8,12 +8,13 @@ import { useTypedSelector } from '../../../../hooks/useTypedSelector'
 import { getOrderedItemsCount } from '../../../../store/reducers/basket'
 import { addItem } from '../../../../store/actions/basket'
 import { useMediaQuery } from '@material-ui/core'
-import IngredientsItemsInfo from '../ProductItemInfo/IngredientsItemsInfo/IngredientsItemsInfo'
+import IngredientsItemsInfo from '../../../common/ItemInfo/IngredientsItemsInfo/IngredientsItemsInfo'
+import { useRouteMatch, useHistory } from 'react-router-dom'
 
 export interface IProductItem extends IDataItemWithKey {
   className?: string
-  getInfoItemId: (id: string) => void
-  isViewingInfo: string | null
+  toggleInfoItem: (id: string) => void
+  infoItemId: string | null
 }
 
 const ProductItem: FC<IProductItem> = ({
@@ -23,14 +24,21 @@ const ProductItem: FC<IProductItem> = ({
   price,
   labels,
   id,
-  getInfoItemId,
-  isViewingInfo,
+  toggleInfoItem,
+  infoItemId,
   structure,
 }) => {
   const orderedItemCount = useTypedSelector((state) =>
     getOrderedItemsCount(state, id)
   )
   const width1024 = useMediaQuery('(max-width: 1024px)')
+  const { path } = useRouteMatch()
+  const { push } = useHistory()
+
+  function getCurrentPath(imgName: string) {
+    const index = img.lastIndexOf('/') + 1
+    return img.slice(index, -4).replace(/[0-9]/g, '')
+  }
 
   //! Возможно потом надо будет сделать addEventListener на родителе, потому что
   //! Во первых так мы передаём в каждый компонент отдельную функцию.
@@ -40,7 +48,16 @@ const ProductItem: FC<IProductItem> = ({
     addItem(id, price)
   }
 
-  const showInfo = () => getInfoItemId(id)
+  const showInfoInNewPage = () => {
+    push(`${path}/${getCurrentPath(img)}`)
+  }
+
+  const showInfo = () => {
+    toggleInfoItem(id)
+    if (width1024) {
+      showInfoInNewPage()
+    }
+  }
 
   const itemLabels = labels.map((label) => (
     <span
@@ -54,7 +71,7 @@ const ProductItem: FC<IProductItem> = ({
       className={cn(
         className,
         styles.item,
-        isViewingInfo === id && styles.item_viewed
+        infoItemId === id && styles.item_viewed
       )}>
       <ImgItem
         className={styles.item__img}
