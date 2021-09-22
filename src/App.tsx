@@ -1,6 +1,7 @@
 import { Header, ProductPage, Footer } from './components'
+import './reset-styles.css'
 import styles from './App.module.scss'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import Basket from './components/Basket/Basket'
 import { useEffect } from 'react'
 import { useTypedSelector } from './hooks/useTypedSelector'
@@ -17,33 +18,31 @@ const App = () => {
   }, [dispatch])
 
   //! Пока такого типа проверка, потом сдеать нормальную
-  if (!items.rolls.length) {
+  if (!items.sushi.length) {
     return <div style={{ flex: '1 0 auto' }}>Loading...</div>
   }
 
   return (
     <div className={styles.wrapper}>
-      <Route exact path='/'>
-        <Redirect to='/sushi' />
-      </Route>
-
       <Header className={styles.headerContainer} />
-      <Route path='/basket'>
-        <Basket className={styles.mainContainer} />
-      </Route>
 
-      {getProductItems(items).map((item) => {
-        return (
-          <Route key={item.path} path={item.path}>
-            <ProductPage
-              title={item.title}
-              items={item.items}
-              className={styles.mainContainer}
-            />
-          </Route>
-        )
-      })}
-
+      <Switch>
+        <Route path='/basket'>
+          <Basket className={styles.mainContainer} />
+        </Route>
+        {getProductItems(items).map((item) => {
+          return (
+            <Route key={item.path} path={item.path}>
+              <ProductPage
+                title={item.title}
+                items={item.items}
+                className={styles.mainContainer}
+              />
+            </Route>
+          )
+        })}
+        <Redirect to='/sushi' />
+      </Switch>
       <Footer className={styles.footerContainer} />
     </div>
   )
