@@ -4,6 +4,7 @@ import {
   IDataItems,
   getKeys,
   fetchedItemsWithKeys,
+  IProductItemsState,
 } from '../types/productItems'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
@@ -31,24 +32,32 @@ export const fetchItems = createAsyncThunk(
 
       return itemsWithKeys
     } catch (err) {
-      return rejectWithValue(err.response.data)
+      // return rejectWithValue(err.response.data)
+      return rejectWithValue(err)
     }
   }
 )
 
-const initialState: IDataItems<IDataItemWithKey> = {
-  rolls: [],
-  sushi: [],
+const initialState: IProductItemsState<IDataItemWithKey> = {
+  items: {
+    rolls: [],
+    sushi: [],
+  },
+  infoItemId: null,
 }
 
 const productItemsSlice = createSlice({
-  name: 'items',
+  name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    //! Добавить Type для экшена!!!
+    getInfoItemId: (state, action) => {
+      state.infoItemId = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchItems.fulfilled, (state, action) => {
-      state.rolls = action.payload.rolls
-      state.sushi = action.payload.sushi
+      state.items = action.payload
     })
     //! Здесь можно обработать ошибку
     builder.addCase(fetchItems.rejected, (state, action) => {
@@ -58,6 +67,7 @@ const productItemsSlice = createSlice({
 })
 
 //? selectors
-export const getItems = ({ items }: RootState) => items
+export const getItems = (state: RootState) => state.product.items
+export const actions = productItemsSlice.actions
 
 export default productItemsSlice.reducer

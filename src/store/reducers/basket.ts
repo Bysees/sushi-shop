@@ -79,7 +79,7 @@ const basketSlice = createSlice({
 
 export const getOrderedItems = ({
   basket: { orderedItems },
-  items,
+  product: { items },
 }: RootState): orderedItemType[] => {
   //! Возможно сделать 2 вложенных цикла гораздо лучше чем все эти копии, сортировки и сомнительный while, но пока оставлю так.
   const resultItems = [] as orderedItemType[]

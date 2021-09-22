@@ -30,6 +30,11 @@ export interface IDataItems<T> {
   rolls: T[]
 }
 
+export interface IProductItemsState<T> {
+  items: IDataItems<T>
+  infoItemId: string | null
+}
+
 export type fetchedItemsWithKeys = Record<
   keyof IDataItems<IDataItemWithKey>,
   IDataItemWithKey[]

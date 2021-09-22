@@ -5,7 +5,7 @@ import productItemsReducer from './reducers/productItems'
 const store = configureStore({
   reducer: {
     basket: basketReducer,
-    items: productItemsReducer,
+    product: productItemsReducer,
   },
 })
 
