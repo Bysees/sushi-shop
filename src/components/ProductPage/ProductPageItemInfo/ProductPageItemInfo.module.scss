@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+  &_unmount {
+    opacity: 0;
+    transition: 0.3s;
+  }
+}
+
+.container {
+  padding: 5px;
+  width: 98%;
+  height: 90%;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 96%;
+  }
+}
