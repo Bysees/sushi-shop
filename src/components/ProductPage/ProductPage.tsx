@@ -16,7 +16,6 @@ interface IProductPage {
 
 const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   const [currentItems, setCurrentItems] = useState<IDataItemWithKey[]>(items)
-
   const { path } = useRouteMatch()
 
   //? Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
@@ -53,23 +52,25 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
     //? Сделать так, что-бы этот компонент роутился бы либо в App, вместо ProductPage, либо в productPage поменять стили так, чтобы при переходах у меня бы применялась анимация появления
     <main className={className + ' ' + styles.product}>
       <Switch>
-        <Route exact path={path}>
-          <h1 className={styles.product__title}>{title}</h1>
-          <Filters
-            filtredLabels={labels}
-            getFiltredItems={getFiltredItemsByLabel}
-            className={styles.product__filters}
-          />
-          <ProductItems
-            setIsFiltred={setIsFiltred}
-            isFiltred={isFiltred}
-            infoItemId={infoItemId}
-            setInfoItemId={setInfoItemId}
-            items={currentItems}
-            className={styles.product__items}
-          />
+        <Route key={path} exact path={path}>
+          <div className={styles['product__animation-wrapper']}>
+            <h1 className={styles.product__title}>{title}</h1>
+            <Filters
+              filtredLabels={labels}
+              getFiltredItems={getFiltredItemsByLabel}
+              className={styles.product__filters}
+            />
+            <ProductItems
+              setIsFiltred={setIsFiltred}
+              isFiltred={isFiltred}
+              infoItemId={infoItemId}
+              setInfoItemId={setInfoItemId}
+              items={currentItems}
+              className={styles.product__items}
+            />
+          </div>
         </Route>
-        <Route path={`${path}/:name`}>
+        <Route key={path + '/:name'} path={`${path}/:name`}>
           <ProductPageItemInfo items={currentItems} />
         </Route>
       </Switch>

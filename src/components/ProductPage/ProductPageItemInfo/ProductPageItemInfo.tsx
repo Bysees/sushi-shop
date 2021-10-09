@@ -5,6 +5,7 @@ import ItemInfo from '../../../components/common/ItemInfo/ItemInfo'
 import styles from './ProductPageItemInfo.module.scss'
 import cn from 'classnames'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import { setInfoItemId } from '../../../store/actions/productItems'
 
 interface IProductPageItemInfo {
   items: IDataItemWithKey[]
@@ -25,7 +26,10 @@ const ProductPageItemInfo: FC<IProductPageItemInfo> = ({ items }) => {
   //const item = items.find((item) => item.id === params.id)
 
   const item = items.filter((item) => item.id === infoItemId)[0]
-  const closeItem = () => push(toCorrectUrl(path))
+  const closeItem = () => {
+    setInfoItemId(null)
+    push(toCorrectUrl(path))
+  }
   const onUnmountAnimation = () => setIsUnmounting(true)
 
   return (

@@ -30,7 +30,8 @@ const App = () => {
         <Route path='/basket'>
           <Basket className={styles.mainContainer} />
         </Route>
-        {getProductItems(items).map((item) => {
+        //! массив
+        {/* {getProductItems(items).map((item) => {
           return (
             <Route key={item.path} path={item.path}>
               <ProductPage
@@ -40,7 +41,22 @@ const App = () => {
               />
             </Route>
           )
-        })}
+        })} */}
+        //! не массив
+        <Route key={'rolls'} path={'/rolls'}>
+          <ProductPage
+            title={'Rolls сюда ёпта'}
+            items={items.rolls}
+            className={styles.mainContainer}
+          />
+        </Route>
+        <Route key={'sushi'} path={'/sushi'}>
+          <ProductPage
+            title={'Суши сюда ёпта'}
+            items={items.sushi}
+            className={styles.mainContainer}
+          />
+        </Route>
         <Redirect to='/sushi' />
       </Switch>
       <Footer className={styles.footerContainer} />
