@@ -21,6 +21,7 @@
     background-color: rgb(255, 255, 255);
   }
   &__img {
+    height: 200px;
     @media screen and (max-width: 480px) {
       height: 150px;
     }

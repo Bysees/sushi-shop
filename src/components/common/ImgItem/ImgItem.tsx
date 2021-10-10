@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import styles from './ImgItem.module.scss'
 import cn from 'classnames'
 import { useMediaQuery } from '@material-ui/core'
+import Spinner from '../Loader/Spinner'
 
 interface IImgItem {
   img: string
@@ -18,9 +19,17 @@ const ImgItem: FC<IImgItem> = ({
 }) => {
   const isShowHintInfo = !orderedItemCount && !info
   const isWidth768 = useMediaQuery('(min-width:769px)')
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   return (
     <div className={cn(className, styles.item)}>
+      {!isLoaded && (
+        <div className={styles.loader}>
+          <div className={styles.loader__spinner}>
+            <Spinner />
+          </div>
+        </div>
+      )}
       {isShowHintInfo && (
         <span className={cn(styles.item__hint, styles.item__hint_info)}></span>
       )}
@@ -40,7 +49,12 @@ const ImgItem: FC<IImgItem> = ({
           </span>
         </span>
       )}
-      <img className={styles.item__img} src={img} alt='sushi' />
+      <img
+        className={styles.item__img}
+        src={img}
+        onLoad={() => setIsLoaded(true)}
+        alt='sushi'
+      />
     </div>
   )
 }

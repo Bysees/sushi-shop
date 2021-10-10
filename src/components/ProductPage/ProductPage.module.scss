@@ -1,15 +1,5 @@
 @import './../../assets/variables';
 
-//! height: 1000%, height: auto;. При первой прогрузке сайта и первом переходе по вкладкам прыгает футер, т.к. картинки не успевают прогрузиться, так что эти манипуляции с высотой фиксят это.
-@include keyframes(heightCorrect) {
-  0% {
-    height: 1000%;
-  }
-  100% {
-    height: auto;
-  }
-}
-
 @include keyframes(appear) {
   0% {
     transform: translateY(100px);
@@ -22,7 +12,6 @@
 }
 
 .product {
-  @include animation('heightCorrect 0.5s alternate both');
   &__animation-wrapper {
     @include animation('appear 0.5s alternate both');
   }
