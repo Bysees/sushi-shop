@@ -1,0 +1,56 @@
+@import './../../assets/variables';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: $container-padding;
+  margin: 150px 0 0px;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #2c3a5c;
+  text-transform: uppercase;
+  @media screen and (max-width: 1024px) {
+    margin: 100px 0 0px;
+  }
+  @media screen and (max-width: 767px) {
+    margin: 50px 0 0px;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 480px) {
+    font-size: 1.3rem;
+  }
+  .column {
+    margin-left: 15px;
+    @media screen and (max-width: 1024px) {
+      margin-left: 30px;
+      margin-bottom: 30px;
+      &:nth-child(3) {
+        margin-right: 30px;
+      }
+      &:nth-child(4) {
+        display: none;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      margin: 0;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      flex: 0 0 50%;
+      text-align: center;
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        padding-left: 5%;
+        text-align: left;
+      }
+      &:nth-child(3),
+      &:nth-child(4) {
+        margin: 0px;
+      }
+      &:nth-child(4) {
+        display: block;
+      }
+    }
+  }
+}

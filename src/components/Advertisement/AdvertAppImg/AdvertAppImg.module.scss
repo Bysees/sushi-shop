@@ -1,0 +1,14 @@
+.img-wrapper {
+  margin: 0 auto;
+  max-width: 300px;
+  @media screen and (max-width: 767px) {
+    max-width: 220px;
+  }
+  @media screen and (max-width: 480px) {
+    max-width: 180px;
+  }
+  & img {
+    height: 100%;
+    width: 100%;
+  }
+}

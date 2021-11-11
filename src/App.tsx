@@ -1,4 +1,4 @@
-import { Header, ProductPage, Footer } from './components'
+import { Header, ProductPage, Footer, Advertisement } from './components'
 import './reset-styles.css'
 import styles from './App.module.scss'
 import { Redirect, Route, Switch } from 'react-router-dom'
@@ -30,7 +30,7 @@ const App = () => {
         <Route path='/basket'>
           <Basket className={styles.mainContainer} />
         </Route>
-        //! массив
+        {/* //! массив */}
         {/* {getProductItems(items).map((item) => {
           return (
             <Route key={item.path} path={item.path}>
@@ -42,23 +42,24 @@ const App = () => {
             </Route>
           )
         })} */}
-        //! не массив
+        {/* //! не массив */}
         <Route key={'rolls'} path={'/rolls'}>
           <ProductPage
-            title={'Rolls сюда ёпта'}
+            title={'Роллы'}
             items={items.rolls}
             className={styles.mainContainer}
           />
         </Route>
         <Route key={'sushi'} path={'/sushi'}>
           <ProductPage
-            title={'Суши сюда ёпта'}
+            title={'Суши'}
             items={items.sushi}
             className={styles.mainContainer}
           />
         </Route>
         <Redirect to='/sushi' />
       </Switch>
+      <Advertisement />
       <Footer className={styles.footerContainer} />
     </div>
   )

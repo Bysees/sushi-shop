@@ -1,0 +1,16 @@
+.item {
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  &__link {
+    transition: all 0.3s;
+    display: inline-block;
+    &:hover {
+      transform: scale(1.1) translateX(20px);
+    }
+  }
+  & a,
+  & a:visited {
+    color: #2c3a5c;
+  }
+}
