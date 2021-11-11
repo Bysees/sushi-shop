@@ -25,12 +25,12 @@ const ProductPageItemInfo: FC<IProductPageItemInfo> = ({ items }) => {
     return path.slice(0, index - 1)
   }
 
-  //! Если получать item через find, то он будет равен либо undefined либо object и из-за этого нихуя никуда не передать, т.к. нужно именно object, потом разобраться как можно будет это обойти.
+  //! Если получать item через find, то он будет равен либо undefined либо object и из-за этого ничего никуда не передать, т.к. нужно именно object, потом разобраться как можно будет это обойти.
   //const item = items.find((item) => item.id === params.id)
 
   let item = items.filter((item) => item.id === infoItemId)[0]
 
-  //! временная хуйня потом удалить
+  //! временно, потом удалить
   //? Если перезагрузить страницу, в то время когда открыт этот компонент, то будет выдавать ошибку, так как всё зануляется, поэтому временно использую моковый итем для такого случая. В дальнейшем надо будет персистить данные.
   if (!item) {
     item = items.map((item, index) => {
@@ -40,7 +40,7 @@ const ProductPageItemInfo: FC<IProductPageItemInfo> = ({ items }) => {
       return item
     })[0]
   }
-  //! временная хуйня потом удалить
+  //! временно, потом удалить
 
   const closeItem = () => {
     setInfoItemId(null)

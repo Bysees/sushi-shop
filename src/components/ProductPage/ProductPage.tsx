@@ -51,8 +51,6 @@ const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   )
 
   return (
-    //! ВАЖНО
-    //? Сделать так, что-бы этот компонент роутился бы либо в App, вместо ProductPage, либо в productPage поменять стили так, чтобы при переходах у меня бы применялась анимация появления
     <main className={className + ' ' + styles.product}>
       <Switch>
         <Route key={path} exact path={path}>
