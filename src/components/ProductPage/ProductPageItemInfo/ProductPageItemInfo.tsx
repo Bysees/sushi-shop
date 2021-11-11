@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { IDataItemWithKey } from '../../../store/types/productItems'
 import ItemInfo from '../../../components/common/ItemInfo/ItemInfo'
@@ -17,6 +17,9 @@ const ProductPageItemInfo: FC<IProductPageItemInfo> = ({ items }) => {
   const [isUnmounting, setIsUnmounting] = useState<boolean>(false)
   const infoItemId = useTypedSelector((state) => state.product.infoItemId)
 
+  //? При переходе по вкладкам, открывает страницу сверху.
+  useEffect(() => window.scrollTo(0, 0), [])
+
   function toCorrectUrl(path: string) {
     const index = path.indexOf(':')
     return path.slice(0, index - 1)
@@ -25,7 +28,20 @@ const ProductPageItemInfo: FC<IProductPageItemInfo> = ({ items }) => {
   //! Если получать item через find, то он будет равен либо undefined либо object и из-за этого нихуя никуда не передать, т.к. нужно именно object, потом разобраться как можно будет это обойти.
   //const item = items.find((item) => item.id === params.id)
 
-  const item = items.filter((item) => item.id === infoItemId)[0]
+  let item = items.filter((item) => item.id === infoItemId)[0]
+
+  //! временная хуйня потом удалить
+  //? Если перезагрузить страницу, в то время когда открыт этот компонент, то будет выдавать ошибку, так как всё зануляется, поэтому временно использую моковый итем для такого случая. В дальнейшем надо будет персистить данные.
+  if (!item) {
+    item = items.map((item, index) => {
+      if (index === 1) {
+        return item
+      }
+      return item
+    })[0]
+  }
+  //! временная хуйня потом удалить
+
   const closeItem = () => {
     setInfoItemId(null)
     push(toCorrectUrl(path))
@@ -35,10 +51,10 @@ const ProductPageItemInfo: FC<IProductPageItemInfo> = ({ items }) => {
   return (
     <div
       onTransitionEnd={closeItem}
-      className={cn(styles.wrapper, isUnmounting && styles.wrapper_unmount)}>
+      className={cn(styles.page, isUnmounting && styles.page_unmount)}>
       <div
-        onTransitionEnd={(e) => e.stopPropagation()}
-        className={styles.container}>
+        className={styles.page__wrapper}
+        onTransitionEnd={(e) => e.stopPropagation()}>
         <ItemInfo
           removeItem={onUnmountAnimation}
           key={item.key}

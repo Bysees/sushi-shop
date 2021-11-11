@@ -1,6 +1,6 @@
 import styles from './ProductPage.module.scss'
 import Filters from './Filters/Filters'
-import { FC, useCallback, useMemo, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import ProductItems from './ProductItems/ProductItems'
 import { IDataItemWithKey, labelsType } from '../../store/types/productItems'
 import { Route, useRouteMatch, Switch } from 'react-router'
@@ -17,6 +17,9 @@ interface IProductPage {
 const ProductPage: FC<IProductPage> = ({ title, items, className }) => {
   const [currentItems, setCurrentItems] = useState<IDataItemWithKey[]>(items)
   const { path } = useRouteMatch()
+
+  //? При переходе по вкладкам, открывает страницу сверху.
+  useEffect(() => window.scrollTo(0, 0), [])
 
   //? Нужно для того, чтобы переключать класс в profileItem, для наложение стилей.
   const infoItemId = useTypedSelector((state) => state.product.infoItemId)

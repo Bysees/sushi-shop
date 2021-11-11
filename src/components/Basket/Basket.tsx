@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import Rouble from '../common/Rouble'
 import styles from './Basket.module.scss'
 import BasketItems from './BasketItems/BasketItems'
@@ -13,6 +13,8 @@ interface IBasket {
 const Basket: FC<IBasket> = ({ className }) => {
   const orderedItems = useTypedSelector(getOrderedItems)
   const amount = useTypedSelector(({ basket }) => basket.amount)
+  //? При переходе по вкладкам, открывает страницу сверху.
+  useEffect(() => window.scrollTo(0, 0), [])
 
   return (
     <div className={className + ' ' + styles.wrapper}>
