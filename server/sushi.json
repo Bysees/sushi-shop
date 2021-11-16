@@ -5,7 +5,7 @@
       "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ КРЕВЕТКА (3 ШТ.)",
       "price": 270,
       "labels": ["hot", "new"],
-      "img": "http://localhost:3001/picture/spicy_baked.jpg",
+      "img": "picture/spicy_baked.jpg",
       "structure": {
         "ingredients": [
           "тигровая креветка",
@@ -24,7 +24,7 @@
       "id": 2,
       "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ ЛОСОСЬ (3 ШТ.)",
       "price": 270,
-      "img": "http://localhost:3001/picture/spicy_baked.jpg",
+      "img": "picture/spicy_baked.jpg",
       "labels": ["hot"],
       "structure": {
         "ingredients": [
@@ -44,7 +44,7 @@
       "id": 3,
       "title": "СУШИ ЧУКА (3 ШТ.)",
       "price": 180,
-      "img": "http://localhost:3001/picture/sushi_chukka1.jpg",
+      "img": "picture/sushi_chukka1.jpg",
       "labels": ["vegan"],
       "structure": {
         "ingredients": ["cалат чука", "рис", "кунжут", "водоросли нори"],
@@ -59,7 +59,7 @@
       "id": 4,
       "title": "СУШИ САКЕ (3 ШТ.)",
       "price": 180,
-      "img": "http://localhost:3001/picture/sushi_sake.jpg",
+      "img": "picture/sushi_sake.jpg",
       "labels": ["hit"],
       "structure": {
         "ingredients": ["лосось", "рис"],
@@ -74,7 +74,7 @@
       "id": 5,
       "title": "СУШИ ЭБИ (3 ШТ.)",
       "price": 270,
-      "img": "http://localhost:3001/picture/sushi_ebi.jpg",
+      "img": "picture/sushi_ebi.jpg",
       "labels": [],
       "structure": {
         "ingredients": ["тигровая криветка", "рис"],
@@ -89,7 +89,7 @@
       "id": 6,
       "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ КРЕВЕТКА (3 ШТ.)",
       "price": 270,
-      "img": "http://localhost:3001/picture/cheesy_baked.jpg",
+      "img": "picture/cheesy_baked.jpg",
       "labels": [],
       "structure": {
         "ingredients": [
@@ -109,7 +109,7 @@
       "id": 7,
       "title": "СУШИ УНАГИ (3 ШТ.)",
       "price": 360,
-      "img": "http://localhost:3001/picture/sushi_unagi.jpg",
+      "img": "picture/sushi_unagi.jpg",
       "labels": ["hit"],
       "structure": {
         "ingredients": [
@@ -130,7 +130,7 @@
       "id": 8,
       "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ ЛОСОСЬ (3 ШТ.)",
       "price": 360,
-      "img": "http://localhost:3001/picture/cheesy_baked.jpg",
+      "img": "picture/cheesy_baked.jpg",
       "labels": [],
       "structure": {
         "ingredients": [
@@ -150,7 +150,7 @@
       "id": 9,
       "title": "СПАЙСИ СУШИ КРЕВЕТКА (3 ШТ.)",
       "price": 270,
-      "img": "http://localhost:3001/picture/sushi_spicy_shrimp1.jpg",
+      "img": "picture/sushi_spicy_shrimp1.jpg",
       "labels": ["hot"],
       "structure": {
         "ingredients": [
@@ -170,7 +170,7 @@
       "id": 10,
       "title": "СПАЙСИ СУШИ ЛОСОСЬ (3 ШТ.)",
       "price": 270,
-      "img": "http://localhost:3001/picture/sushi_spicy_salmon.jpg",
+      "img": "picture/sushi_spicy_salmon.jpg",
       "labels": ["hot"],
       "structure": {
         "ingredients": ["лосось", "рис", "водоросли нори", "соус спайси"],

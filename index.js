@@ -3,15 +3,13 @@ const fs = require('fs')
 const path = require('path')
 const db = require('./server/db.js')
 
-// console.log(db)
-
 const server = jsonServer.create()
 const router = jsonServer.router(db)
 const middlewares = jsonServer.defaults({
   static: './build',
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3002
 
 server.use(middlewares)
 server.use((req, res, next) => {
