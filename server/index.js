@@ -5,7 +5,13 @@ import db from './db.js'
 
 const server = jsonServer.create()
 const router = jsonServer.router(db())
+const middlewares = jsonServer.defaults({
+  static: './build',
+})
 
+const PORT = process.env.PORT || 3001
+
+server.use(middlewares)
 server.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*'])
   next()
@@ -24,6 +30,6 @@ fs.readdirSync(images).forEach((dir) => {
 })
 
 server.use('/api', router)
-server.listen(3001, () => {
+server.listen(PORT, () => {
   console.log('JSON Server is running')
 })
