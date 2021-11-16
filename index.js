@@ -1,10 +1,12 @@
-import jsonServer from 'json-server'
-import fs from 'fs'
-import path from 'path'
-import db from './server/db.js'
+const jsonServer = require('json-server')
+const fs = require('fs')
+const path = require('path')
+const db = require('./server/db.js')
+
+// console.log(db)
 
 const server = jsonServer.create()
-const router = jsonServer.router(db())
+const router = jsonServer.router(db)
 const middlewares = jsonServer.defaults({
   static: './build',
 })
@@ -31,5 +33,5 @@ fs.readdirSync(images).forEach((dir) => {
 
 server.use('/api', router)
 server.listen(PORT, () => {
-  console.log('JSON Server is running')
+  console.log(`JSON Server is running on port ${PORT}`)
 })

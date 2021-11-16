@@ -1,6 +1,6 @@
-import sushiItems from './sushi.json'
-import rollsItems from './rolls.json'
-import crypto from 'crypto'
+const sushiItems = require('./sushi.json')
+const rollsItems = require('./rolls.json')
+const crypto = require('crypto')
 
 function getItemsWithId(items, indetificator) {
   return items.map((item) => {
@@ -17,8 +17,6 @@ const items = {
   rolls,
 }
 
-export default () => {
-  return {
-    items,
-  }
+module.exports = {
+  items,
 }
