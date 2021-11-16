@@ -1,7 +1,7 @@
 import jsonServer from 'json-server'
 import fs from 'fs'
 import path from 'path'
-import db from './db.js'
+import db from './server/db.js'
 
 const server = jsonServer.create()
 const router = jsonServer.router(db())
