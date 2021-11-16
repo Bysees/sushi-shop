@@ -1,1 +1,1 @@
-web: node --experimental-json-modules server/index.js
+web: yarn server
