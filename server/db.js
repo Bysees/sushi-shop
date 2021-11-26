@@ -12,11 +12,7 @@ function getItemsWithId(items, indetificator) {
 const sushi = getItemsWithId(sushiItems.sushi, 'hex')
 const rolls = getItemsWithId(rollsItems.rolls, 'hex')
 
-const items = {
+module.exports = {
   sushi,
   rolls,
-}
-
-module.exports = {
-  items,
 }

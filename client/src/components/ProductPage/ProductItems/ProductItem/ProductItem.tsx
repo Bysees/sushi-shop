@@ -53,9 +53,10 @@ const ProductItem: FC<IProductItem> = ({
   }
 
   const showInfo = () => {
-    toggleInfoItem(id)
     if (width1024) {
       showInfoInNewPage()
+    } else {
+      toggleInfoItem(id)
     }
   }
 
