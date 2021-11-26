@@ -8,7 +8,7 @@ import { fetchItems, getItems } from './store/reducers/productItems'
 import Loader from './components/Loader/Loader'
 import { getProductItems } from './routes/productOptions'
 import { useEffect } from 'react'
-import { Route, Switch } from 'react-router'
+import { Switch, Route } from 'react-router-dom'
 
 const App = () => {
   const items = useTypedSelector(getItems)
