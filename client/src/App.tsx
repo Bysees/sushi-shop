@@ -18,8 +18,6 @@ const App = () => {
     dispatch(fetchItems())
   }, [dispatch])
 
-  console.log(process.env)
-
   if (!items.sushi.length) return <Loader />
 
   return (

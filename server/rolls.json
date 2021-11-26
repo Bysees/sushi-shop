@@ -5,7 +5,7 @@
       "title": "РОЛЛ С УГРЁМ И АВОКАДО",
       "price": 420,
       "labels": ["new"],
-      "img": "picture/roll_avocado.jpg",
+      "img": "/picture/roll_avocado.jpg",
       "structure": {
         "ingredients": [
           "угорь",
@@ -30,7 +30,7 @@
       "title": "УНАГИ МАКИ",
       "price": 290,
       "labels": [],
-      "img": "picture/sake_unagi.jpg",
+      "img": "/picture/sake_unagi.jpg",
       "structure": {
         "ingredients": [
           "Классический ролл с угрем:",
@@ -52,7 +52,7 @@
       "title": "РОЛЛ С ТОФУ И АНАНАСОМ",
       "price": 180,
       "labels": ["new"],
-      "img": "picture/roll_ananas_tofu.jpg",
+      "img": "/picture/roll_ananas_tofu.jpg",
       "structure": {
         "ingredients": [
           "Тофу",
@@ -78,7 +78,7 @@
       "title": "РОЛЛ КАППА АВОКАДО МАКИ",
       "price": 180,
       "labels": ["vegan"],
-      "img": "picture/kappa_avokado_maki.jpg",
+      "img": "/picture/kappa_avokado_maki.jpg",
       "structure": {
         "ingredients": ["Огурец", "рис", "водоросли нори", "авокадо", "кунжут"],
         "weight": 150,
@@ -93,7 +93,7 @@
       "title": "МАСАГО МАКИ",
       "price": 180,
       "labels": ["hit"],
-      "img": "picture/masago_maki.jpg",
+      "img": "/picture/masago_maki.jpg",
       "structure": {
         "ingredients": [
           "Тигровая креветка",
@@ -114,7 +114,7 @@
       "title": "ФИЛАДЕЛЬФИЯ В УГРЕ",
       "price": 520,
       "labels": ["hit"],
-      "img": "picture/roll_philadelphia_v_ugre.jpg",
+      "img": "/picture/roll_philadelphia_v_ugre.jpg",
       "structure": {
         "ingredients": [
           "Угорь",
@@ -137,7 +137,7 @@
       "title": "ФИЛАДЕЛЬФИЯ ЛЮКС",
       "price": 450,
       "labels": ["hit"],
-      "img": "picture/roll_philadelphia_lux.jpg",
+      "img": "/picture/roll_philadelphia_lux.jpg",
       "structure": {
         "ingredients": [
           "Лосось",
@@ -161,7 +161,7 @@
       "title": "САКУ УНАГИ",
       "price": 450,
       "labels": [],
-      "img": "picture/sake_unagi.jpg",
+      "img": "/picture/sake_unagi.jpg",
       "structure": {
         "ingredients": [
           "Лосось",
@@ -185,7 +185,7 @@
       "title": "РОЛЛ СЛИВОЧНЫЙ УГОРЬ",
       "price": 430,
       "labels": [],
-      "img": "picture/slivochnij_ugor.jpg",
+      "img": "/picture/slivochnij_ugor.jpg",
       "structure": {
         "ingredients": [
           "Угорь",
@@ -209,7 +209,7 @@
       "title": "ЗАПЕЧЁННЫЙ РОЛЛ С КРАБОМ И СЫРОМ МОЦАРЕЛЛА",
       "price": 290,
       "labels": ["new"],
-      "img": "picture/roll_mozarella.jpg",
+      "img": "/picture/roll_mozarella.jpg",
       "structure": {
         "ingredients": [
           "Снежный краб",
@@ -235,7 +235,7 @@
       "title": "САКЕ МАКИ",
       "price": 210,
       "labels": [],
-      "img": "picture/sake_maki.jpg",
+      "img": "/picture/sake_maki.jpg",
       "structure": {
         "ingredients": [
           "Классический ролл с лососем:",
@@ -255,7 +255,7 @@
       "title": "ТЁПЛЫЙ РОЛЛ С КРЕВЕТКАМИ В СЛИВОЧНОМ СОУСЕ",
       "price": 290,
       "labels": [],
-      "img": "picture/teplij_roll_s_krivetkoj.jpg",
+      "img": "/picture/teplij_roll_s_krivetkoj.jpg",
       "structure": {
         "ingredients": [
           "Жареный лосось",
