@@ -35,7 +35,7 @@ route.get('/sushi/:id', (req, res) => {
 })
 app.use('/api', route)
 
-if (process.env.NODE_ENV.trim() === 'production') {
+if (process.env.NODE_ENV?.trim() === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')))
   app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
