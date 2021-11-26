@@ -1,7 +1,6 @@
 import { Header, ProductPage, Footer, Advertisement } from './components'
 import './reset-styles.css'
 import styles from './App.module.scss'
-import { Route, Switch } from 'react-router-dom'
 import Basket from './components/Basket/Basket'
 import { useTypedSelector } from './hooks/useTypedSelector'
 import { useTypedDispatch } from './hooks/useTypedDispatch'
@@ -9,6 +8,7 @@ import { fetchItems, getItems } from './store/reducers/productItems'
 import Loader from './components/Loader/Loader'
 import { getProductItems } from './routes/productOptions'
 import { useEffect } from 'react'
+import { Route, Switch } from 'react-router'
 
 const App = () => {
   const items = useTypedSelector(getItems)
