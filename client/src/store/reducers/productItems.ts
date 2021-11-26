@@ -23,7 +23,7 @@ export const fetchItems = createAsyncThunk(
     try {
       const response = await axios.get<IDataItems<IDataItem>>(`/api/items`)
       const itemsWithKeys = {} as fetchedItemsWithKeys
-
+      console.log(response.data)
       getKeys(response.data).forEach((key) => {
         itemsWithKeys[key] = getCopyItemsWithKeys(response.data[key])
       })

@@ -1,38 +1,46 @@
-const jsonServer = require('json-server')
-const fs = require('fs')
+const express = require('express')
 const path = require('path')
+const app = express()
+const route = express()
 const db = require('./server/db.js')
 
-const server = jsonServer.create()
-const router = jsonServer.router(db)
+const PORT = process.env.PORT || 5000
 
-//!prod
-// const middlewares = jsonServer.defaults({
-//   static: './build',
-// })
-// server.use(middlewares)
-//!prod
+app.use(
+  '/picture',
+  express.static(path.join(__dirname, 'server', 'images', 'rolls'))
+)
 
-const PORT = process.env.PORT || 3002
+app.use(
+  '/picture',
+  express.static(path.join(__dirname, 'server', 'images', 'sushi'))
+)
 
-server.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['*'])
-  next()
+route.get('/items', (req, res) => {
+  res.json(db)
 })
 
-const images = path.join(__dirname, 'server', 'images')
+route.get('/sushi', (req, res) => {
+  res.json(db.sushi)
+})
 
-//! Создаю middlewares для каждой картинки.
-fs.readdirSync(images).forEach((dir) => {
-  fs.readdirSync(path.join(images, dir)).forEach((filename) => {
-    const middleware = jsonServer.defaults({
-      static: path.join(images, dir, filename),
-    })
-    server.use(`/picture/${filename}`, middleware)
+route.get('/rolls', (req, res) => {
+  res.json(db.rolls)
+})
+
+route.get('/sushi/:id', (req, res) => {
+  const { id } = req.params
+  let item = db.sushi.filter((item) => item.id === id)
+  res.json(item)
+})
+app.use('/api', route)
+
+if (process.env.NODE_ENV.trim() === 'production') {
+  app.use(express.static(path.join(__dirname, 'client', 'build')))
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
   })
-})
-
-server.use('/api', router)
-server.listen(PORT, () => {
-  console.log(`JSON Server is running on port ${PORT}`)
+}
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`)
 })

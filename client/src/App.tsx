@@ -18,6 +18,8 @@ const App = () => {
     dispatch(fetchItems())
   }, [dispatch])
 
+  console.log(process.env)
+
   if (!items.sushi.length) return <Loader />
 
   return (
@@ -38,7 +40,6 @@ const App = () => {
             </Route>
           )
         })}
-        <Redirect to='/sushi' />
       </Switch>
       <Advertisement />
       <Footer className={styles.footerContainer} />
