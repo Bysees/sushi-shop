@@ -5,25 +5,28 @@ const db = require('./server/db.js')
 
 const server = jsonServer.create()
 const router = jsonServer.router(db)
-const middlewares = jsonServer.defaults({
-  static: './build',
-})
+
+//!prod
+// const middlewares = jsonServer.defaults({
+//   static: './build',
+// })
+// server.use(middlewares)
+//!prod
 
 const PORT = process.env.PORT || 3002
 
-server.use(middlewares)
 server.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*'])
   next()
 })
 
-const images = path.join('server/images')
+const images = path.join(__dirname, 'server', 'images')
 
-//! пока оставлю хуёвый вложенный цикл, потом мб поменяю.
+//! Создаю middlewares для каждой картинки.
 fs.readdirSync(images).forEach((dir) => {
-  fs.readdirSync(`${images}/${dir}`).forEach((filename) => {
+  fs.readdirSync(path.join(images, dir)).forEach((filename) => {
     const middleware = jsonServer.defaults({
-      static: `${images}/${dir}/${filename}`,
+      static: path.join(images, dir, filename),
     })
     server.use(`/picture/${filename}`, middleware)
   })

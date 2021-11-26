@@ -21,7 +21,7 @@ export const fetchItems = createAsyncThunk(
   'items/fetchItems',
   async (value, { rejectWithValue }) => {
     try {
-      const response = await axios.get<IDataItems<IDataItem>>(`api/items`)
+      const response = await axios.get<IDataItems<IDataItem>>(`/api/items`)
       const itemsWithKeys = {} as fetchedItemsWithKeys
 
       getKeys(response.data).forEach((key) => {
